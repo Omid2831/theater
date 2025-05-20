@@ -11,7 +11,7 @@ class Tickets extends BaseController
 
 
         $data = [
-            'title' => 'Tickets overzicht',
+            'title' => 'Tickets Overzicht',
         ];
 
         /**

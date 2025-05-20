@@ -13,6 +13,6 @@ if (!isset($data)) {
     <title><?= $data['title'] ?></title>
 </head>
 <body>
-   <h1>Omid mehrabi</h1> 
+   
 </body>
 </html>
