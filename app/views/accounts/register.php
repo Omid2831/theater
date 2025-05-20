@@ -1,7 +1,7 @@
 
 <div class="container">
     <h2>Registreren</h2>
-    <?php if (!empty(\$error)) echo "<p style='color:red;'>\$error</p>"; ?>
+    <?php if (!empty($error)) echo "<p style='color:red;'>\$error</p>"; ?>
     <form method="POST">
         <input type="text" name="voornaam" placeholder="Voornaam" required>
         <input type="text" name="achternaam" placeholder="Achternaam" required> action="/Accounts/register">
