@@ -1,0 +1,31 @@
+<mxfile host="65bd71144e">
+    <diagram id="ol0qOOdBuMWcVKgpwSpC" name="Page-1">
+        <mxGraphModel dx="1955" dy="880" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1600" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="8" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="290" y="10" width="280" height="800" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry width="280" height="790" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Header" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="4.883720930232558" y="20" width="270.2325581395349" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="footer" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="4.883720930232558" y="680" width="270.2325581395349" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="ticket" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="20" y="140" width="240" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="overzicht van totale besteling en verdere&lt;br&gt;prosodure" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="58.78" y="500" width="162.45" height="140" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="ticket" style="whiteSpace=wrap;html=1;" vertex="1" parent="8">
+                    <mxGeometry x="20" y="320" width="240" height="160" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
