@@ -1,6 +1,6 @@
 <?php
 
-class Homepages extends BaseController
+class Tickets extends BaseController
 {
 
     public function index($firstname = NULL, $infix = NULL, $lastname = NULL)
@@ -11,14 +11,14 @@ class Homepages extends BaseController
 
 
         $data = [
-            'title' => 'Homepagina',
+            'title' => 'Tickets overzicht',
         ];
 
         /**
          * Met de view-method uit de BaseController-class wordt de view
          * aangeroepen met de informatie uit het $data-array
          */
-        $this->view('homepages/index', $data);
+        $this->view('tickets/index', $data);
     }
 
 }

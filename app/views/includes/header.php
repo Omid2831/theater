@@ -21,7 +21,7 @@
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Home/index">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Ticket/index">Ticket</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Ticket/index">Tickets</a></li>
             </ul>
 
             <ul class="navbar-nav">

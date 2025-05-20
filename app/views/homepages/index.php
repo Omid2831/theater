@@ -82,7 +82,7 @@ if (!isset($data)) {
     <nav>
         <a href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a>
         <a href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a>
-        <a href="<?= URLROOT ?>/Ticket/index">Tickets</a>
+        <a href="<?= URLROOT ?>/Tickets/index">Tickets</a>
     </nav>
     <div class="nav-right">
         <a href="<?= URLROOT ?>/Accounts/login">Inloggen</a>
