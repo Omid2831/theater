@@ -6,20 +6,19 @@ class Tickets extends BaseController
     public function index($firstname = NULL, $infix = NULL, $lastname = NULL)
     {
         // // start de sessie
-        // session_start();
+        session_start();
 
-        // // check of de bezoeker is ingelogd
-        if (!isset($_SESSION['bezoeker'])) {
-            // als de bezoeker niet is ingelogd, wordt hij doorgestuurd naar de inlogpagina
-            header('Location: ' . URLROOT . '/bezoekers/login');
+        // // // check of de bezoeker is ingelogd
+        if (!isset($_SESSION['bezoekerId'])) {
+            echo "Je moet ingelogd zijn om deze pagina te bekijken.";
             exit();
-        }
-           
-        $bezoekerId = $_SESSION['bezoeker_id'];
+        } 
 
-        // Load the Ticket model and fetch tickets for this bezoeker
-        require_once APPROOT . '/Models/TicketModel.php';
-        $tickets = Ticket::getTicketsForBezoeker($bezoekerId);
+            $bezoekerId = $_SESSION['bezoekerId'];
+
+            // Load the Ticket model and fetch tickets for this bezoeker
+            require_once APPROOT . '/Models/TicketModel.php';
+            $tickets = Ticket::getTicketsForBezoeker($bezoekerId);
         
         /**
          * Het $data-array geeft informatie mee aan de view-pagina
@@ -33,7 +32,5 @@ class Tickets extends BaseController
          * aangeroepen met de informatie uit het $data-array
          */
         $this->view('tickets/index', $data);
-        
     }
-
 }

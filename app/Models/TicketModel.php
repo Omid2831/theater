@@ -8,11 +8,10 @@ class Ticket
         
     }
     public static function getTicketsForBezoeker($bezoekerId){
-        
-         require __DIR__ . '/../../config/database.php';
 
-        $sql = "
-            SELECT 
+        require_once APPROOT . '/config/config.php';
+
+        $sql = "SELECT 
                  t.Id
                 ,v.Naam AS Voorstelling
                 ,t.Opmerking
