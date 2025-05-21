@@ -5,15 +5,16 @@ class Tickets extends BaseController
 
     public function index($firstname = NULL, $infix = NULL, $lastname = NULL)
     {
-        // start de sessie
-        session_start();
+        // // start de sessie
+        // session_start();
 
-        // check of de bezoeker is ingelogd
+        // // check of de bezoeker is ingelogd
         if (!isset($_SESSION['bezoeker'])) {
             // als de bezoeker niet is ingelogd, wordt hij doorgestuurd naar de inlogpagina
-           echo "Je moet ingelogd zijn om deze pagina te bekijken.";
-           return;
+            header('Location: ' . URLROOT . '/bezoekers/login');
+            exit();
         }
+           
         $bezoekerId = $_SESSION['bezoeker_id'];
 
         // Load the Ticket model and fetch tickets for this bezoeker
@@ -25,7 +26,7 @@ class Tickets extends BaseController
          */
         $data = [
             'title' => 'Mijn Tickets',
-            'tickets' => $tickets
+            'tickets' => $tickets, // Uncomment this line if you want to pass tickets to the view
         ];
         /**
          * Met de view-method uit de BaseController-class wordt de view
