@@ -1,6 +1,6 @@
-CREATE DATABASE Aurora;
-
-USE Aurora;
+DROP DATABASE IF EXISTS theaterdb;
+CREATE DATABASE theaterdb;
+USE theaterdb;
 
 CREATE TABLE
     Gebruiker (
