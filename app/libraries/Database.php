@@ -91,4 +91,8 @@ class Database
     public function outQuery($sql) {
         return $this->dbHandler->query($sql);
     }
+
+    public function lastInsertId() {
+        return $this->dbHandler->lastInsertId();
+    }
 }

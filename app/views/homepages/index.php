@@ -1,5 +1,4 @@
 <?php
-require_once APPROOT . '/config/config.php';
 
 if (!isset($data)) {
     $data = ['title' => 'Aurora Theater'];
@@ -73,24 +72,7 @@ if (!isset($data)) {
     </style>
 </head>
 <body>
-
-<header>
-    <div class="logo">
-      <img src="/public/img/logo-theater.png" alt="Aurora Logo">
-        <h2>Aurora Theater</h2>
-    </div>
-    <nav>
-        <a href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a>
-        <a href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a>
-        <a href="<?= URLROOT ?>/Ticket/index">Tickets</a>
-    </nav>
-    <div class="nav-right">
-        <a href="<?= URLROOT ?>/Accounts/login">Inloggen</a>
-        <a href="<?= URLROOT ?>/Accounts/profiel">
-            <img src="/public/img/icon-profile.png" alt="Profiel">
-        </a>
-    </div>
-</header>
+<?php include APPROOT . '/views/includes/header.php'; ?>
 
 <div class="container">
     <h3><?php echo $data['title']; ?></h3>

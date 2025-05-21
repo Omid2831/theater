@@ -1,9 +1,11 @@
+DROP DATABASE IF EXISTS Aurora;
+
 CREATE DATABASE Aurora;
 
 USE Aurora;
 
 CREATE TABLE Gebruiker (
-    Id INT PRIMARY KEY,
+    Id INT PRIMARY KEY AUTO_INCREMENT,
     Voornaam VARCHAR(50) NOT NULL,
     Tussenvoegsel VARCHAR(10),
     Achternaam VARCHAR(50) NOT NULL,
@@ -19,7 +21,7 @@ CREATE TABLE Gebruiker (
 );
 
 CREATE TABLE Rol (
-    Id INT PRIMARY KEY,
+    Id INT PRIMARY KEY AUTO_INCREMENT,
     GebruikerId INT NOT NULL,
     Naam VARCHAR(100) NOT NULL,
     Isactief BIT NOT NULL,
