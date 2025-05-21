@@ -39,7 +39,7 @@
                         <?php endforeach ?> 
                     <?php else: ?>
                         <tr>
-                            <td><p class="text-center">Momenteel niet beschikbaar.</p></td>
+                            <td colspan="6"><p class="text-center">Momenteel niet beschikbaar.</p></td>
                         </tr>
                     <?php endif; ?>
 
