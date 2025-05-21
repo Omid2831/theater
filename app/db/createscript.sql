@@ -123,3 +123,23 @@ CREATE TABLE Melding (
     FOREIGN KEY (MedewerkerId) REFERENCES Medewerker(Id)
 );
 
+-- data in voorstelling zetten. de naam, tijd, datum, maximaal aantal tickets en beschrijving van de voorstellingen die beschikbaar zijn
+ INSERT INTO Voorstelling
+(
+      Id
+     ,MedewerkerId
+     ,Naam
+     ,Beschrijving
+     ,Datum
+     ,Tijd
+     ,MaxAantalTickets
+     ,Beschikbaarheid
+     ,IsActief
+     ,Opmerking
+     ,DatumAangemaakt
+     ,DatumGewijzigd
+)
+VALUES
+   (1, 1,'Soldaat van oranje', 'Een theaterstuk over de Tweede Wereldoorlog.', "2025-06-20", '16:00', 50, 40, 1, NULL, SYSDATE(6), SYSDATE(6))
+  ,(2, 2,'Frozen', 'Een musical over twee zussen', "2025-06-10", '13:00', 100, 30, 1, NULL, SYSDATE(6), SYSDATE(6))
+  ,(3, 3,'Elizabeth', 'Een Musical over de problemen van het hofsleven', "2025-05-29", '19:00', 200, 130, 1, NULL, SYSDATE(6), SYSDATE(6));
