@@ -43,16 +43,15 @@ class Tickets extends BaseController
                 if ($now < $eventDateTime) {
                     $status = 'yellow';
                     $message = "Voorstelling is op " . $eventDateTime->format('d-m-Y H:i');
+                     $status = 'green';
+                    $message = "Geldig: ticket is nu geldig!";
                 } elseif ($now > $eventDateTime) {
                     $status = 'red';
                     $message = "Ongeldig: ticket is verlopen";
                 } else {
-                    $status = 'green';
-                    $message = "Geldig: ticket is nu geldig!";
+                    $status = 'red';
+                    $message = "Geen ticket gevonden met deze barcode.";
                 }
-            } else {
-                $status = 'red';
-                $message = "Geen ticket gevonden met deze barcode.";
             }
         }
 
