@@ -64,7 +64,7 @@ require_once APPROOT . '/views/includes/b-header.php';
 
         <!-- Main content area - 8 columns -->
         <div class="col-md-8">
-            <h2 class="text-info mb-4 text-center">Mijn Tickets</h2>
+            <h2 class="text-white mb-4 text-center">Overzicht van de tickets</h2>
 
             <?php if (empty($data['tickets'])): ?>
                 <div class="alert alert-info text-center">Geen tickets gevonden.</div>

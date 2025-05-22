@@ -1,5 +1,5 @@
 
-<?php require   APPROOT . '/views/includes/header.php'; ?>
+<?php require_once   APPROOT . '/views/includes/header.php'; ?>
 
 <style>
     body {
@@ -105,4 +105,4 @@
     </div>
     <!-- eind tabel -->
 
-<?php require   APPROOT . '/views/includes/footer.php'; ?>
+<?php require_once   APPROOT . '/views/includes/footer.php'; ?>

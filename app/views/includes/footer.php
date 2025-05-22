@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="<?= URLROOT ?>/css/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<footer class="container footer mt-auto py-4 bg-dark text-light">
+<footer class="footer py-4 bg-dark text-light position-relative bottom-0">
     <div class=" text-center">
         <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3 gap-3">
             <img src="/public/img/logo-theater.png" alt="Aurora Logo" width="48" height="48" class="me-2">
@@ -23,7 +23,7 @@
             <a href="#" class="text-light" aria-label="YouTube"><i class="fab fa-youtube fa-lg"></i></a>
         </div>
 
-        <p class="text-muted mb-0">&copy; <?= date("Y"); ?> Aurora Theater. Alle rechten voorbehouden.</p>
+        <p class="text-white mb-0">&copy; <?= date("Y"); ?> Aurora Theater. Alle rechten voorbehouden.</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </footer>
