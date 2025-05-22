@@ -1,0 +1,69 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #E8E8E8;
+}
+
+
+.header-navbar {
+    background-color: #2A3D45;
+    padding: 0.5rem 1rem;
+    color: #E8E8E8;
+}
+
+.header-navbar .navbar-brand span {
+    color: #E8E8E8;
+    font-size: 1.2rem;
+}
+
+.header-navbar .nav-link {
+    color: #E8E8E8;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+.header-navbar .nav-link:hover {
+    color: #C2B280;
+    text-decoration: underline;
+    text-decoration-color: #C2B280;
+}
+
+.header-navbar .dropdown-menu a:hover {
+    color: #C2B280;
+}
+
+
+footer {
+    background-color: #1E2D2F;
+    color: #E8E8E8;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+footer .nav-link {
+    color: #E8E8E8;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+footer .nav-link:hover {
+    color: #C2B280;
+    text-decoration: underline;
+    text-decoration-color: #C2B280;
+}
+
+footer .text-muted {
+    color: #C2B280;
+    font-size: 0.9rem;
+}
+
+footer img {
+    vertical-align: middle;
+}
+
+footer .fw-semibold {
+    color: #E8E8E8;
+    font-size: 1.1rem;
+}
