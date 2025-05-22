@@ -8,22 +8,23 @@
     <meta charset="UTF-8">
     <title>Aurora Theater - Registreren</title>
     <link rel="stylesheet" href="<?= URLROOT ?>/css/footer.css">
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
-            background-color:rgb(79, 0, 0);
-            color: #ffffff;
+            background-color: #1a1a1a;
+            color: #E8E8E8;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color:rgb(153, 7, 7);
+            background-color: #2A3D45;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 15px 30px;
-            border-bottom: 3px solid #1E90FF;
+            border-bottom: 3px solid #C2B280;
         }
 
         .logo {
@@ -37,20 +38,20 @@
         }
 
         .logo h2 {
-            color: #ffffff;
-            font-size: 22px;
+            color: #E8E8E8;
+            font-size: 24px;
             margin: 0;
         }
 
         nav a, .nav-right a {
             margin-left: 20px;
-            color: #ffffff;
+            color: #E8E8E8;
             text-decoration: none;
             font-weight: 500;
         }
 
         nav a:hover, .nav-right a:hover {
-            color: #1E90FF;
+            color: #C2B280;
         }
 
         .nav-right {
@@ -65,20 +66,21 @@
         }
 
         .container {
-            background-color:rgb(226, 27, 27);
+            background-color: #2A3D45;
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(222, 10, 10, 0.5);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
             width: 100%;
             max-width: 500px;
             margin: 60px auto;
             text-align: center;
+            color: #E8E8E8;
         }
 
         h2 {
             margin-bottom: 25px;
-            color: #1E90FF;
-            font-size: 26px;
+            color: #C2B280;
+            font-size: 28px;
         }
 
         form label {
@@ -86,7 +88,7 @@
             text-align: left;
             margin-bottom: 6px;
             font-weight: 600;
-            color:rgb(255, 255, 255);
+            color: #C2B280;
         }
 
         input[type="text"],
@@ -94,43 +96,50 @@
             width: 100%;
             padding: 12px;
             margin-bottom: 18px;
-            border: none;
-            border-radius: 6px;
-            background:rgb(255, 255, 255);
-            color:rgb(28, 3, 3);
+            border: 1px solid #C2B280;
+            border-radius: 8px;
+            background: #1E2D2F;
+            color: #E8E8E8;
             font-size: 15px;
         }
 
         input:focus {
-            outline: 2px solid #1E90FF;
+            border-color: #C2B280;
+            outline: none;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background-color:rgb(171, 5, 5);
-            color: white;
+            background-color: #C2B280;
+            color: #2A3D45;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         button:hover {
-            background-color: #0077dd;
+            background-color: #E8E8E8;
+            color: #2A3D45;
         }
 
         .error-message {
-            background-color: #ff4c4c;
-            color: white;
+            background-color: #C2B280;
+            color: #2A3D45;
             padding: 12px;
             border-radius: 8px;
             text-align: center;
             max-width: 500px;
             margin: 30px auto 0;
             font-weight: 500;
+        }
+
+        footer {
+            background-color: #1E2D2F !important;
+            color: #E8E8E8 !important;
         }
     </style>
 </head>

@@ -9,21 +9,21 @@
     <title>Aurora Theater - Inloggen</title>
     <link rel="stylesheet" href="<?= URLROOT ?>/css/footer.css">
     <style>
-         body {
+        body {
             font-family: 'Segoe UI', sans-serif;
             background-color: #1a1a1a;
-            color: #ffffff;
+            color: #E8E8E8;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #000;
+            background-color: #2A3D45;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 15px 30px;
-            border-bottom: 3px solid #e50914;
+            border-bottom: 3px solid #C2B280;
         }
 
         .logo {
@@ -37,7 +37,7 @@
         }
 
         .logo h2 {
-            color: #fff;
+            color: #E8E8E8;
             font-size: 24px;
             margin: 0;
         }
@@ -45,14 +45,14 @@
         nav a,
         .nav-right a {
             margin-left: 20px;
-            color: #fff;
+            color: #E8E8E8;
             text-decoration: none;
             font-weight: 500;
         }
 
         nav a:hover,
         .nav-right a:hover {
-            color: #e50914;
+            color: #C2B280;
         }
 
         .nav-right {
@@ -67,7 +67,7 @@
         }
 
         .container {
-            background-color: #fff;
+            background-color: #2A3D45;
             padding: 40px;
             border-radius: 12px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
@@ -75,12 +75,12 @@
             max-width: 420px;
             margin: 60px auto;
             text-align: center;
-            color: #000;
+            color: #E8E8E8;
         }
 
         h2 {
             margin-bottom: 25px;
-            color: #e50914;
+            color: #C2B280;
             font-size: 28px;
         }
 
@@ -89,7 +89,7 @@
             text-align: left;
             margin-bottom: 6px;
             font-weight: 600;
-            color: #333;
+            color: #C2B280;
         }
 
         input[type="text"],
@@ -98,59 +98,66 @@
             padding: 12px;
             margin-top: 6px;
             margin-bottom: 18px;
-            border: 1px solid #ccc;
+            border: 1px solid #C2B280;
             border-radius: 8px;
-            background: #f9f9f9;
-            color: #111;
+            background: #1E2D2F;
+            color: #E8E8E8;
             font-size: 15px;
         }
 
         input:focus {
-            border-color: #e50914;
+            border-color: #C2B280;
             outline: none;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background-color: #e50914;
-            color: white;
+            background-color: #C2B280;
+            color: #2A3D45;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         button:hover {
-            background-color: #c40812;
+            background-color: #E8E8E8;
+            color: #2A3D45;
         }
 
         p.footer {
             margin-top: 16px;
-            color: #333;
+            color: #C2B280;
             font-size: 14px;
         }
 
         p.footer a {
-            color: #e50914;
+            color: #C2B280;
             font-weight: 500;
         }
 
         p.footer a:hover {
             text-decoration: underline;
+            color: #E8E8E8;
         }
 
         .error-message {
-            background-color: #ff4c4c;
-            color: white;
+            background-color: #C2B280;
+            color: #2A3D45;
             padding: 12px;
             border-radius: 8px;
             text-align: center;
             max-width: 420px;
             margin: 30px auto 0;
             font-weight: 500;
+        }
+
+        footer {
+            background-color: #1E2D2F !important;
+            color: #E8E8E8 !important;
         }
     </style>
 </head>

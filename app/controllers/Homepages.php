@@ -11,7 +11,7 @@ class Homepages extends BaseController
 
 
         $data = [
-            'title' => 'Homepagina',
+            'title' => '',
         ];
 
         /**
