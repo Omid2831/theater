@@ -101,11 +101,12 @@ require_once APPROOT . '/views/includes/b-header.php';
                         <thead class="thead-dark">
                             <tr>
                                 <th>Voorstelling</th>
-                                <th>Opmerking</th>
+                                <th>Barcode</th>
                                 <th>Tijd</th>
                                 <th>Datum</th>
                                 <th>Stoel</th>
                                 <th>Status</th>
+                                <th>Scanner</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,6 +121,9 @@ require_once APPROOT . '/views/includes/b-header.php';
                                         <span class="badge <?= $tickets->Status === 'Actief' ? 'bg-success' : 'bg-secondary' ?>">
                                             <?= $tickets->Status; ?>
                                         </span>
+                                    </td>
+                                    <td>
+                                        <a href="<?= URLROOT ?>/Tickets/scan?barcode=<?= $tickets->Opmerking ?>" class="btn btn-primary">Scan</a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>

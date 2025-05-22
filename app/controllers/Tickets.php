@@ -22,4 +22,25 @@ class Tickets extends BaseController
 
         $this->view('tickets/index', $data);
     }
+
+    public function scan()
+    {
+        $result = null;
+        $error = '';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $barcode = trim($_POST['barcode']);
+            $result = $this->ticketModel->findTicketByBarcode($barcode);
+
+            if (!$result) {
+                $error = "Geen ticket gevonden met deze barcode.";
+            }
+        }
+
+        $this->view('tickets/scan', [
+            'title' => 'Ticket Scannen',
+            'ticket' => $result,
+            'error' => $error
+        ]);
+    }
 }
