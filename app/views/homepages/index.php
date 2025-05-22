@@ -47,7 +47,7 @@ if (!isset($data)) {
     Welkom op de website van Aurora Theater! Op onze website vind je alles wat je nodig hebt voor een geweldige theaterervaring.<br><br>
     <strong>Voorstellingen:</strong> Bekijk het actuele <a href="<?= URLROOT ?>/Voorstellingen/index">voorstellingenoverzicht</a> en ontdek welke shows binnenkort te zien zijn.<br>
     <strong>Medewerkers:</strong> Leer ons team kennen op de pagina <a href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a> en ontdek wie er achter de schermen werken.<br>
-    <strong>Tickets:</strong> Wil je een voorstelling bezoeken? Ga dan direct naar <a href="<?= URLROOT ?>/Ticket/index">Tickets</a> om eenvoudig je kaarten te reserveren.<br><br>
+    <strong>Tickets:</strong> Wil je een voorstelling bezoeken? Ga dan direct naar <a href="<?= URLROOT ?>/tickets/index">Tickets</a> om eenvoudig je kaarten te reserveren.<br><br>
     Of je nu een vaste bezoeker bent of voor het eerst kennismaakt met ons theater, wij zorgen voor een inspirerende en toegankelijke online ervaring. Heb je vragen of wil je meer weten? Neem gerust contact met ons op. Veel plezier op onze website!
 </p>
 
@@ -78,7 +78,7 @@ if (!isset($data)) {
             <div class="card-body">
                 <h5 class="card-title">Tickets</h5>
                 <p class="card-text">Reserveer eenvoudig je tickets voor de beste plaatsen en geniet van een onvergetelijke avond.</p>
-                <a href="<?= URLROOT ?>/Ticket/index" class="btn btn-outline-warning">Bestel tickets</a>
+                <a href="<?= URLROOT ?>/tickets/index" class="btn btn-outline-warning">Bestel tickets</a>
             </div>
         </div>
     </div>
