@@ -1,40 +1,43 @@
 <?php
-
 require_once APPROOT . '/config/config.php';
 require_once APPROOT . '/views/includes/b-header.php';
-
 ?>
 
- 
-   <style>
+<style>
     /* Custom styles to preserve your design */
     .navbar-aurora {
         background-color: #1a1a1a;
         border-bottom: 2px solid #e50914;
         padding: 10px 0;
     }
+
     .navbar-brand {
         display: flex;
         align-items: center;
         color: #f4f4f4 !important;
         font-weight: bold;
     }
+
     .navbar-brand img {
         height: 40px;
         margin-right: 10px;
     }
+
     .nav-link {
         color: #f4f4f4 !important;
         font-weight: bold;
         padding: 0.5rem 1rem !important;
     }
+
     .nav-link:hover {
         color: #e50914 !important;
     }
+
     .profile-icon {
         height: 24px;
         margin-left: 15px;
     }
+
     /* Add these new styles */
     .navbar {
         position: fixed;
@@ -44,8 +47,10 @@ require_once APPROOT . '/views/includes/b-header.php';
         width: 100%;
         z-index: 1030;
     }
+
     body {
-        padding-top: 60px; /* To account for fixed navbar */
+        padding-top: 60px;
+        /* To account for fixed navbar */
     }
 </style>
 
@@ -55,11 +60,9 @@ require_once APPROOT . '/views/includes/b-header.php';
             <img src="/public/img/logo-theater.png" alt="Aurora Logo">
             Aurora Theater
         </a>
-        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -72,7 +75,7 @@ require_once APPROOT . '/views/includes/b-header.php';
                     <a class="nav-link" href="<?= URLROOT ?>/Tickets/index">Tickets</a>
                 </li>
             </ul>
-            
+
             <div class="d-flex align-items-center">
                 <a class="nav-link" href="<?= URLROOT ?>/Accounts/login">Inloggen</a>
                 <a href="<?= URLROOT ?>/Accounts/profiel">
@@ -88,11 +91,11 @@ require_once APPROOT . '/views/includes/b-header.php';
     <div class="row">
         <!-- Left spacer - 2 columns -->
         <div class="col-md-2"></div>
-        
+
         <!-- Main content area - 8 columns -->
         <div class="col-md-8">
             <h2 class="text-info mb-4 text-center">Mijn Tickets</h2>
-            
+
             <?php if (empty($data['tickets'])): ?>
                 <div class="alert alert-info text-center">Geen tickets gevonden.</div>
             <?php else: ?>
@@ -113,7 +116,10 @@ require_once APPROOT . '/views/includes/b-header.php';
                             <?php foreach ($data['tickets'] as $tickets): ?>
                                 <tr>
                                     <td><?= $tickets->Voorstelling; ?></td>
-                                    <td><?= $tickets->Opmerking; ?></td>
+                                    <td>
+                                        <img src="https://barcode.tec-it.com/barcode.ashx?data=<?= urlencode($tickets->Opmerking) ?>&code=Code128&translate-esc=off" alt="<?= $tickets->Opmerking ?>" style="height:40px;">
+                                        <div class="offset-3" style="font-size:10px; position: relative; right:0.6em;"><?= $tickets->Opmerking ?></div>
+                                    </td>
                                     <td><?= date('H:i', strtotime($tickets->Tijd)); ?></td>
                                     <td><?= date('d-m-Y', strtotime($tickets->Datum)); ?></td>
                                     <td><?= $tickets->Stoel; ?></td>
@@ -132,7 +138,7 @@ require_once APPROOT . '/views/includes/b-header.php';
                 </div>
             <?php endif; ?>
         </div>
-        
+
         <!-- Right spacer - 2 columns -->
         <div class="col-md-2"></div>
     </div>

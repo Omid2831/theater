@@ -25,16 +25,19 @@ class TicketModel
     }
 
     // scan ticket by barcode
+
     public function findTicketByBarcode($barcode)
     {
         $sql = "SELECT
-         t.Id,
-         v.Naam AS Voorstelling,
-         t.Barcode,
-         t.Status
-            FROM Ticket t
-            JOIN Voorstelling v ON t.VoorstellingId = v.Id
-            WHERE t.Barcode = :barcode";
+        t.Id,
+        v.Naam AS Voorstelling,
+        t.Barcode,
+        t.Status,
+        t.Datum,
+        t.Tijd
+    FROM Ticket t
+    JOIN Voorstelling v ON t.VoorstellingId = v.Id
+    WHERE t.Barcode = :barcode";
         $this->db->query($sql);
         $this->db->bind(':barcode', $barcode);
         return $this->db->single();

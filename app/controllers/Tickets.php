@@ -23,24 +23,44 @@ class Tickets extends BaseController
         $this->view('tickets/index', $data);
     }
 
+
     public function scan()
     {
-        $result = null;
-        $error = '';
+        $ticket = null;
+        $status = '';
+        $message = '';
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $barcode = trim($_POST['barcode']);
-            $result = $this->ticketModel->findTicketByBarcode($barcode);
+        // Get barcode from GET or POST
+        $barcode = $_GET['barcode'] ?? ($_POST['barcode'] ?? '');
 
-            if (!$result) {
-                $error = "Geen ticket gevonden met deze barcode.";
+        if ($barcode) {
+            $ticket = $this->ticketModel->findTicketByBarcode($barcode);
+
+            if ($ticket) {
+                $now = new DateTime();
+                $eventDateTime = new DateTime($ticket->Datum . ' ' . $ticket->Tijd);
+
+                if ($now < $eventDateTime) {
+                    $status = '';
+                    $message = "Voorstelling is op " . $eventDateTime->format('d-m-Y H:i');
+                } elseif ($now > $eventDateTime) {
+                    $status = 'red';
+                    $message = "Ongeldig: ticket is verlopen";
+                } else {
+                    $status = 'green';
+                    $message = "Geldig: ticket is nu geldig!";
+                }
+            } else {
+                $status = 'red';
+                $message = "Geen ticket gevonden met deze barcode.";
             }
         }
 
         $this->view('tickets/scan', [
-            'title' => 'Ticket Scannen',
-            'ticket' => $result,
-            'error' => $error
+            'ticket' => $ticket,
+            'status' => $status,
+            'message' => $message,
+            'barcode' => $barcode
         ]);
     }
 }

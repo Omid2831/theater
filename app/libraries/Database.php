@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Dit is de database class die alle communicatie met de database verzorgt
  */
@@ -27,7 +28,7 @@ class Database
          * fouten weer te geven
          */
         $options = array(
-            PDO::ATTR_PERSISTENT =>true,
+            PDO::ATTR_PERSISTENT => true,
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_EMULATE_PREPARES => false
         );
@@ -44,7 +45,7 @@ class Database
              */
             // logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
             echo "Op dit moment kunnen we u niet helpen... probeer het later nog eens";
-            header('Refresh:30; url=' .URLROOT . '/homepages/index');
+            header('Refresh:30; url=' . URLROOT . '/homepages/index');
         }
     }
 
@@ -69,7 +70,11 @@ class Database
      */
     public function bind($parameter, $value, $type = null)
     {
-        $this->statement->bindValue($parameter, $value, $type);
+        if ($type === null) {
+            $this->statement->bindValue($parameter, $value);
+        } else {
+            $this->statement->bindValue($parameter, $value, $type);
+        }
     }
 
     /**
@@ -88,7 +93,8 @@ class Database
         return $result;
     }
 
-    public function outQuery($sql) {
+    public function outQuery($sql)
+    {
         return $this->dbHandler->query($sql);
     }
 }
