@@ -113,7 +113,7 @@ require_once APPROOT . '/views/includes/b-header.php';
                                 <tr>
                                     <td><?= $tickets->Voorstelling; ?></td>
                                     <td><?= $tickets->Opmerking; ?></td>
-                                    <td><?= $tickets->Tijd; ?></td>
+                                    <td><?= date('H:i', strtotime($tickets->Tijd)); ?></td>
                                     <td><?= date('d-m-Y', strtotime($tickets->Datum)); ?></td>
                                     <td><?= $tickets->Stoel; ?></td>
                                     <td>
