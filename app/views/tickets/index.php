@@ -54,37 +54,7 @@ require_once APPROOT . '/views/includes/b-header.php';
     }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-aurora fixed-top">
-    <div class="container-fluid px-4"> <!-- Added px-4 for side padding -->
-        <a class="navbar-brand" href="#">
-            <img src="/public/img/logo-theater.png" alt="Aurora Logo">
-            Aurora Theater
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= URLROOT ?>/Tickets/index">Tickets</a>
-                </li>
-            </ul>
-
-            <div class="d-flex align-items-center">
-                <a class="nav-link" href="<?= URLROOT ?>/Accounts/login">Inloggen</a>
-                <a href="<?= URLROOT ?>/Accounts/profiel">
-                    <img src="/public/img/icon-profile.png" alt="Profiel" class="profile-icon">
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
+<?php require_once APPROOT . '/views/includes/header.php'; ?>
 
 
 <div class="container" style="margin-top: 15rem;">
