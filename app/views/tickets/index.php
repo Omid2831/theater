@@ -104,12 +104,12 @@ require_once APPROOT . '/views/includes/b-header.php';
                         <thead class="thead-dark">
                             <tr>
                                 <th>Voorstelling</th>
-                                <th>Barcode</th>
+                                <th>Code</th>
                                 <th>Tijd</th>
                                 <th>Datum</th>
                                 <th>Stoel</th>
                                 <th>Status</th>
-                                <th>Scanner</th>
+                                <th>Scanbare Code</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,8 +117,7 @@ require_once APPROOT . '/views/includes/b-header.php';
                                 <tr>
                                     <td><?= $tickets->Voorstelling; ?></td>
                                     <td>
-                                        <img src="https://barcode.tec-it.com/barcode.ashx?data=<?= urlencode($tickets->Opmerking) ?>&code=Code128&translate-esc=off" alt="<?= $tickets->Opmerking ?>" style="height:40px;">
-                                        <div class="offset-3" style="font-size:10px; position: relative; right:0.6em;"><?= $tickets->Opmerking ?></div>
+                                        <?= $tickets->Opmerking ?>
                                     </td>
                                     <td><?= date('H:i', strtotime($tickets->Tijd)); ?></td>
                                     <td><?= date('d-m-Y', strtotime($tickets->Datum)); ?></td>

@@ -41,7 +41,7 @@ class Tickets extends BaseController
                 $eventDateTime = new DateTime($ticket->Datum . ' ' . $ticket->Tijd);
 
                 if ($now < $eventDateTime) {
-                    $status = '';
+                    $status = 'yellow';
                     $message = "Voorstelling is op " . $eventDateTime->format('d-m-Y H:i');
                 } elseif ($now > $eventDateTime) {
                     $status = 'red';
