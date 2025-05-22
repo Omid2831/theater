@@ -84,7 +84,7 @@ require_once APPROOT . '/views/includes/b-header.php';
 </nav>
 
 
-<div class="container mt-5">
+<div class="container mt-5" style="position: relative; top: 12rem;">
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-8">
             <h2 class="text-info mb-4">Mijn Tickets</h2>
