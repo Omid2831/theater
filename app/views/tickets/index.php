@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require_once APPROOT . '/config/config.php';
 require_once APPROOT . '/views/includes/b-header.php';
 
@@ -84,10 +84,14 @@ require_once APPROOT . '/views/includes/b-header.php';
 </nav>
 
 
-<div class="container mt-5" style="position: relative; top: 12rem;">
-    <div class="row justify-content-center">
-        <div class="col-md-10 col-lg-8">
-            <h2 class="text-info mb-4">Mijn Tickets</h2>
+<div class="container" style="margin-top: 15rem;">
+    <div class="row">
+        <!-- Left spacer - 2 columns -->
+        <div class="col-md-2"></div>
+        
+        <!-- Main content area - 8 columns -->
+        <div class="col-md-8">
+            <h2 class="text-info mb-4 text-center">Mijn Tickets</h2>
             
             <?php if (empty($data['tickets'])): ?>
                 <div class="alert alert-info text-center">Geen tickets gevonden.</div>
@@ -96,7 +100,6 @@ require_once APPROOT . '/views/includes/b-header.php';
                     <table class="table table-dark table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Id</th>
                                 <th>Voorstelling</th>
                                 <th>Opmerking</th>
                                 <th>Tijd</th>
@@ -106,17 +109,16 @@ require_once APPROOT . '/views/includes/b-header.php';
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($data['tickets'] as $ticket): ?>
+                            <?php foreach ($data['tickets'] as $tickets): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($ticket['Id']) ?></td>
-                                    <td><?= htmlspecialchars($ticket['Voorstelling']) ?></td>
-                                    <td><?= htmlspecialchars($ticket['Opmerking']) ?></td>
-                                    <td><?= htmlspecialchars($ticket['Tijd']) ?></td>
-                                    <td><?= date('d-m-Y', strtotime($ticket['Datum'])) ?></td>
-                                    <td><?= htmlspecialchars($ticket['Stoel']) ?></td>
+                                    <td><?= $tickets->Voorstelling; ?></td>
+                                    <td><?= $tickets->Opmerking; ?></td>
+                                    <td><?= $tickets->Tijd; ?></td>
+                                    <td><?= date('d-m-Y', strtotime($tickets->Datum)); ?></td>
+                                    <td><?= $tickets->Stoel; ?></td>
                                     <td>
-                                        <span class="badge <?= $ticket['Status'] === 'Actief' ? 'bg-success' : 'bg-secondary' ?>">
-                                            <?= htmlspecialchars($ticket['Status']) ?>
+                                        <span class="badge <?= $tickets->Status === 'Actief' ? 'bg-success' : 'bg-secondary' ?>">
+                                            <?= $tickets->Status; ?>
                                         </span>
                                     </td>
                                 </tr>
@@ -126,6 +128,9 @@ require_once APPROOT . '/views/includes/b-header.php';
                 </div>
             <?php endif; ?>
         </div>
+        
+        <!-- Right spacer - 2 columns -->
+        <div class="col-md-2"></div>
     </div>
 </div>
 
