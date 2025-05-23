@@ -70,6 +70,13 @@ require_once APPROOT . '/views/includes/b-header.php';
                 <div class="alert alert-info text-center">Geen tickets gevonden.</div>
             <?php else: ?>
                 <div class="table-responsive">
+
+                    <div class="mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Zoek op voorstelling...">
+                    </div>
+                    <div id="notFoundMsg" class="alert alert-warning text-center" style="display:none;">
+                        Niet gevonden naam
+                    </div>
                     <table class="table table-dark table-striped table-hover">
                         <thead class="thead-dark">
                             <tr>
@@ -115,3 +122,23 @@ require_once APPROOT . '/views/includes/b-header.php';
 
 <?php require APPROOT . '/views/includes/footer.php'; ?>
 <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
+
+<script>
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll('table tbody tr');
+    let found = false;
+
+    rows.forEach(row => {
+        let voorstelling = row.querySelector('td').textContent.toLowerCase();
+        if (voorstelling.includes(filter)) {
+            row.style.display = '';
+            found = true;
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    document.getElementById('notFoundMsg').style.display = found ? 'none' : '';
+});
+</script>
