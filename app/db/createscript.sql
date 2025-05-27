@@ -20,6 +20,17 @@ CREATE TABLE
         Datumaangemaakt DATETIME(6) NOT NULL,
         Datumgewijzigd DATETIME(6) NOT NULL
     );
+    INSERT INTO Gebruiker (
+    Id, Voornaam, Tussenvoegsel, Achternaam, Gebruikersnaam, 
+    Wachtwoord, IsIngelogd, Ingelogd, Uitgelogd, 
+    Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd
+)
+VALUES 
+(101, 'Odi', NULL, 'Matar', 'jan.jansen', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Bezoeker', GETDATE(), GETDATE()),
+(102, 'Sophie', 'de', 'Vries', 'sophie.vries', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Medewerker', GETDATE(), GETDATE()),
+(103, 'Mark', NULL, 'Pieters', 'mark.pieters', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Administrator', GETDATE(), GETDATE());
+(104, 'Eva', 'van', 'Dijk', 'eva.dijk', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Gast', GETDATE(), GETDATE()),
+(105, 'Tom', NULL, 'Smit', 'tom.smit', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Bezoeker', GETDATE(), GETDATE());
 
 CREATE TABLE
     Rol (
@@ -32,6 +43,14 @@ CREATE TABLE
         Datumgewijzigd DATETIME(6) NOT NULL,
         FOREIGN KEY (GebruikerId) REFERENCES Gebruiker (Id)
     );
+
+    INSERT INTO Rol (Id, GebruikerId, Naam, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
+VALUES 
+(1, 101, 'Bezoeker', 1, 'Standaard bezoekersrol', GETDATE(), GETDATE()),
+(2, 102, 'Medewerker', 1, 'Toegang tot medewerkersfunctionaliteiten', GETDATE(), GETDATE()),
+(3, 103, 'Administrator', 1, 'Volledige rechten', GETDATE(), GETDATE());
+(4, 104, 'Gast', 1, 'Gastrol voor tijdelijke toegang', GETDATE(), GETDATE()),
+
 
 CREATE TABLE
     Contact (
