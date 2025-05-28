@@ -11,7 +11,7 @@ define('DB_PASS', '');
 /**
  * De naam van de virtualhost
  */
-define('URLROOT', 'http://www.auroraproject.org/');  // De naam van de virtualhost define('URLROOT', 'http://aurora.local/'); bij odi
+define('URLROOT', 'http://www.auroraproject.org');  // De naam van de virtualhost define('URLROOT', 'http://aurora.local/'); bij odi
  
 
 
