@@ -55,4 +55,56 @@ public function findTicketByBarcode($barcode)
     }
 }
 
+/* We gaan een functie maken om gegevens uit de database op te halen,
+waarmee we een reserveringsformulier kunnen bouwen */
+
+public function getTicketsById($Id)
+{
+    try {
+        //  Select the ticket info, just the barcode 
+        $sql = "SELECT Barcode FROM Ticket WHERE Id = :id";
+        $this->db->query($sql);
+        $this->db->bind(':id', $Id);
+        $ticket = $this->db->single(); // Fetch ONE  barcode
+
+        if (!$ticket) {
+            error_log('getTicketsById: No ticket found with ID ' . $Id);
+            return false; // No ticket found
+        }
+
+        //  Insert the ticket into Ticket again
+        $sql = "INSERT INTO Ticket (
+                    Voorstelling,
+                    Barcode,
+                    Tijd,
+                    Datum,
+                    Nummer,
+                    Status
+                ) VALUES (
+                    :voorstelling,
+                    :opmerking,
+                    :tijd,
+                    :datum,
+                    :stoel,
+                    :status
+                )";
+        $this->db->query($sql);
+
+        // Step 3: Bind the actual values from the ticket
+        $this->db->bind(':voorstelling', $ticket->VoorstellingId); // Adjust field name if needed
+        $this->db->bind(':opmerking', $ticket->Barcode);
+        $this->db->bind(':tijd', $ticket->Tijd);
+        $this->db->bind(':datum', $ticket->Datum);
+        $this->db->bind(':stoel', $ticket->Nummer);
+        $this->db->bind(':status', $ticket->Status);
+
+        // Step 4: Execute the insert
+        return $this->db->execute();
+
+    } catch (PDOException $e) {
+        error_log('getTicketsById error: ' . $e->getMessage());
+        return false;
+    }
+}
+
 }

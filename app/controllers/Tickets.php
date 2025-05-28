@@ -67,23 +67,25 @@ class Tickets extends BaseController
      * Hier zijn we bezig met het maken van een ticket om te kunnen reserveren door middel van de max en de min beschikbare stoelen
      * @return void
      */
+    
     public function create()
     {
         $data = [
             'title' => 'Ticket Aanmaken',
             'message' => '',
         ];
-        if ($_SERVER['REQUEST_METHOD']=== 'POST')
-        {
-            // handel de creatie van een ticket
-            $voorstelling = $_POST['Voorstelling'] ?? '';
-            $opmerking = $_POST['Opmerking'] ?? '';
-            $tijd = $_POST['Tijd'] ?? '';
-            $datum = $_POST['Datum'] ?? '';
-            $stoel = $_POST['Stoel'] ?? '';
+         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+               if (empty($_POST['naam']) || empty($_POST['barcode']) || empty($_POST['datum']) || empty($_POST['tijd']) || empty($_POST['stoel'])) {
+                    echo '<div class="alert alert-danger text-center" role="alert"><h4>Vul alle velden in</h4></div>';
+                    header('Refresh: 3; URL=' . URLROOT . '/tickets/create');
+                    exit;
+               }
 
-
-        }
+               $data['message'] = 'flex';
+               $this->ticketModel->create($_POST);
+               header('Refresh: 3; URL=' . URLROOT . '/tickets/index');
+          }          
+        $this->view('tickets/create', $data);
     }
 }
