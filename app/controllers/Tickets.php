@@ -54,12 +54,31 @@ class Tickets extends BaseController
                 }
             }
         }
-
-        $this->view('tickets/scan', [
+        // setting defualt values if no tickets found
+        $data =[
             'ticket' => $ticket,
             'status' => $status,
             'message' => $message,
             'barcode' => $barcode
-        ]);
+        ];
+        $this->view('tickets/scan', $data);
+    }
+    /**
+     * Hier zijn we bezig met het maken van een ticket om te kunnen reserveren door middel van de max en de min beschikbare stoelen
+     * @return void
+     */
+    public function create()
+    {
+        if ($_SERVER['REQUEST_METHOD']=== 'POST')
+        {
+            // handel de creatie van een ticket
+            $voorstelling = $_POST['voorstelling'] ?? '';
+            $opmerking = $_POST['Barcode'] ?? '';
+            $tijd = $_POST['Tijd'] ?? '';
+            $datum = $_POST['Datum'] ?? '';
+
+
+
+        }
     }
 }
