@@ -1,6 +1,7 @@
 <?php require   APPROOT . '/views/includes/b-header.php'; ?>
 
 <div class="container mt-3">
+    <?php if (!empty($data['message'])):?>
     <div class="row mb-3" style="display:<?= $data['message']; ?>">
         <div class="col-3"></div>
         <div class="col-6 text-begin text-warning">
@@ -10,6 +11,7 @@
         </div>
         <div class="col-3"></div>
     </div>
+    <?php endif;?>
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6 text-begin text-white">
@@ -25,7 +27,7 @@
             <form action="<?= URLROOT; ?>/tickets/create" method="post">
                 <div class="mb-3">
                     <label for="name" class="form-label text-white">Naam</label>
-                    <input name="naam" type="text" class="form-control" id="name" value="<?= $_POST['naam'] ?? ''; ?>" required>
+                    <input name="naam" type="text" class="form-control" id="name" value="<?= $_POST['voorstellingId'] ?? ''; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="barcode" class="form-label text-white">Barcode</label>
@@ -37,14 +39,14 @@
                 </div>
                 <div class="mb-3">
                     <label for="time" class="form-label text-white">Time</label>
-                    <input name="time" type="time" class="form-control" id="time" value="<?= $_POST['time'] ?? ''; ?>" required>
+                    <input name="time" type="time" class="form-control" id="time" value="<?= $_POST['Tijd'] ?? ''; ?>" required>
                 </div>
                 <div class="mb-3">
                     <label for="stoel" class="form-label text-white">stoel</label>
-                    <input name="stoel" type="text" class="form-control" id="stoel" value="<?= $_POST['stoel'] ?? ''; ?>" required>
+                    <input name="stoel" type="text" class="form-control" id="stoel" value="<?= $_POST['Nummer'] ?? ''; ?>" min="1" max="3" required>
                 </div>
                 <div class="mb-3">
-                    <label for="status">Status</label>
+                    <label for="status" class="text-white">Status</label>
 
                 </div>
                 <button type="submit" class="btn btn-primary">Verstuur</button>
