@@ -69,13 +69,18 @@ class Tickets extends BaseController
      */
     public function create()
     {
+        $data = [
+            'title' => 'Ticket Aanmaken',
+            'message' => '',
+        ];
         if ($_SERVER['REQUEST_METHOD']=== 'POST')
         {
             // handel de creatie van een ticket
-            $voorstelling = $_POST['voorstelling'] ?? '';
-            $opmerking = $_POST['Barcode'] ?? '';
+            $voorstelling = $_POST['Voorstelling'] ?? '';
+            $opmerking = $_POST['Opmerking'] ?? '';
             $tijd = $_POST['Tijd'] ?? '';
             $datum = $_POST['Datum'] ?? '';
+            $stoel = $_POST['Stoel'] ?? '';
 
 
 
