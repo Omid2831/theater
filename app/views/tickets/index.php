@@ -65,7 +65,7 @@ require_once APPROOT . '/views/includes/b-header.php';
         <!-- Main content area - 8 columns -->
         <div class="col-md-8">
             <h2 class="text-white mb-4 text-center">Overzicht van de tickets</h2>
-            <div class="col-10 text-begin mb-3 text-dark" style="position: relative; right: 12rem;">        
+            <div class="col-10 text-begin mb-3 text-dark" style="position: relative; right: 12rem;">
             <a href="<?= URLROOT ?>/tickets/create" class="btn btn-danger" style="background-color:rgb(121, 6, 13) ;" role="button">ReserveringsPlan</a>
         </div>
             <?php if (empty($data['tickets'])): ?>
