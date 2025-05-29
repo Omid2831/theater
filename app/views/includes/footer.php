@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<footer class="bg-dark text-light w-100 h-100 position-relative" style="top:2rem;" >
+<footer class="bg-dark text-light w-100  position-relative" style="top:2rem;" >
   <div class="container-fluid text-center">
     <div class="d-flex flex-column flex-md-row justify-content-center align-items-center mb-3 gap-3">
       <img src="/public/img/logo-theater.png" alt="Aurora Theater Logo" width="48" height="48">
