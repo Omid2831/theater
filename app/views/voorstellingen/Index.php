@@ -103,6 +103,7 @@
         </div>
         <div class="col-1"></div>
     </div>
+</div>
     <!-- eind tabel -->
 
 <?php require_once   APPROOT . '/views/includes/footer.php'; ?>
