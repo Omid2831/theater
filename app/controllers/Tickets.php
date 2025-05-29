@@ -41,9 +41,8 @@ class Tickets extends BaseController
                 $eventDateTime = new DateTime($ticket->Datum . ' ' . $ticket->Tijd);
 
                 if ($now < $eventDateTime) {
-                    $status = 'yellow';
                     $message = "Voorstelling is op " . $eventDateTime->format('d-m-Y H:i');
-                     $status = 'green';
+                    $status = 'green';
                     $message = "Geldig: ticket is nu geldig!";
                 } elseif ($now > $eventDateTime) {
                     $status = 'red';
@@ -55,7 +54,7 @@ class Tickets extends BaseController
             }
         }
         // setting defualt values if no tickets found
-        $data =[
+        $data = [
             'ticket' => $ticket,
             'status' => $status,
             'message' => $message,
@@ -67,25 +66,59 @@ class Tickets extends BaseController
      * Hier zijn we bezig met het maken van een ticket om te kunnen reserveren door middel van de max en de min beschikbare stoelen
      * @return void
      */
-    
+
     public function create()
     {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Initialize data array
+            $data = [
+                'title' => 'Ticket Aanmaken',
+                'voorstelling' => trim($_POST['voorstelling']),
+                'beschrijving' => trim($_POST['beschrijving']),
+                'barcode' => trim($_POST['barcode']),
+                'datum' => trim($_POST['datum']),
+                'tijd' => trim($_POST['tijd']),
+                'Nummer' => trim($_POST['Nummer']),
+            ];
+
+            // Validate empty fields
+            if (
+                empty($data['voorstelling']) ||
+                empty($data['beschrijving']) ||
+                empty($data['barcode']) ||
+                empty($data['datum']) ||
+                empty($data['tijd']) ||
+                empty($data['Nummer'])
+            ) {
+                $data['error'] = '<div class="alert alert-danger text-center" role="alert"><h2>Vul alle velden in</h2></div>';
+                $this->view('tickets/create', $data);
+                return;
+            }
+
+            // Additional validation (example - validate seat number is numeric)
+            if (!is_numeric($data['Nummer'])) {
+                $data['error'] = '<div class="alert alert-danger text-center" role="alert"><h2>Ongeldig stoelnummer</h2></div>';
+                $this->view('tickets/create', $data);
+                return;
+            }
+
+            // Try to create the ticket
+            if ($this->ticketModel->create($data)) {
+                // Success - show success message and redirect
+                $_SESSION['success_message'] = 'Ticket succesvol aangemaakt!';
+                header('Location: ' . URLROOT . '/tickets/index');
+                exit;
+            } else {
+                // Database error
+                $data['error'] = '<div class="alert alert-danger">Fout bij aanmaken ticket</div>';
+                $this->view('tickets/create', $data);
+            }
+        }
+        // GET request - just show the form
         $data = [
             'title' => 'Ticket Aanmaken',
             'message' => '',
         ];
-         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-               if (empty($_POST['naam']) || empty($_POST['barcode']) || empty($_POST['datum']) || empty($_POST['tijd']) || empty($_POST['stoel'])) {
-                    echo '<div class="alert alert-danger text-center" role="alert"><h4>Vul alle velden in</h4></div>';
-                    header('Refresh: 3; URL=' . URLROOT . '/tickets/create');
-                    exit;
-               }
-
-               $data['message'] = 'flex';
-               $this->ticketModel->create($_POST);
-               header('Refresh: 3; URL=' . URLROOT . '/tickets/index');
-          }          
         $this->view('tickets/create', $data);
     }
 }
