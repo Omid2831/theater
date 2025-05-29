@@ -45,7 +45,8 @@ class TicketModel
             p.opmerking AS PrijsOmschrijving
             FROM Ticket t
             JOIN Voorstelling v ON t.VoorstellingId = v.Id
-            JOIN Prijs p ON t.PrijsId = p.Id            WHERE t.Barcode = :barcode";
+            JOIN Prijs p ON t.PrijsId = p.Id
+            WHERE t.Barcode = :barcode";
             $this->db->query($sql);
             $this->db->bind(':barcode', $barcode);
             return $this->db->single();
@@ -58,37 +59,71 @@ class TicketModel
     /* We gaan een functie maken om gegevens uit de database op te halen,
 waarmee we een reserveringsformulier kunnen bouwen */
 
-    public function getTicketsById($data)
+     public function create($data)
     {
         try {
-            $sql = "INSERT INTO Ticket (
-                    VoorstellingId,
-                    Barcode,
-                    Tijd,
-                    Datum,
-                    Nummer,
-                    Status
-                )
-                VALUES (
-                    :voorstellingId,
-                    :barcode,
-                    :tijd,
-                    :datum,
-                    :nummer,
-                    :status
-                )";
+            //  voorstelling
+            $sqlVoorstelling = "SELECT Id FROM Voorstelling WHERE Naam = :naam";
+            $this->db->query($sqlVoorstelling);
+            $this->db->bind(':naam', $data['voorstelling']);
+            $voorstelling = $this->db->single();
 
-            $this->db->query($sql);
-            $this->db->bind(':voorstellingId', $data['voorstellingId']);
+            if (!$voorstelling) {
+                // Create new voorstelling if it doesn't exist
+                $sqlNewVoorstelling = "INSERT INTO Voorstelling 
+                                  ( Naam, Beschrijving, Datum, Tijd, MaxAantalTickets, Beschikbaarheid, IsActief, DatumAangemaakt, DatumGewijzigd)
+                                  VALUES 
+                                  ( :naam, :beschrijving, :datum, :tijd, 100, '40', 1, NOW(), NOW())";
+
+                $this->db->query($sqlNewVoorstelling);
+                $this->db->bind(':naam', $data['voorstelling']);
+                $this->db->bind(':beschrijving', $data['beschrijving']);
+                $this->db->bind(':datum', $data['datum']);
+                $this->db->bind(':tijd', $data['tijd']);
+                $this->db->execute();
+
+                $voorstellingId = $this->db->lastInsertId();
+            } else {
+                $voorstellingId = $voorstelling->Id;
+            }
+
+            // Now insert the ticket with the proper foreign keys
+            $sqlTicket = "INSERT INTO Ticket (
+                     BezoekerId,
+                     VoorstellingId,
+                     PrijsId,
+                     Barcode,
+                     Tijd,
+                     Datum,
+                     Nummer,
+                     Status,
+                     IsActief,
+                     DatumAangemaakt,
+                     DatumGewijzigd
+                     ) VALUES (
+                     1,  
+                     :voorstellingId,
+                     1,  
+                     :barcode,
+                     :tijd,
+                     :datum,
+                     :nummer,
+                     'Geboekt',
+                     1,
+                     NOW(),
+                     NOW()
+                     )";
+
+            $this->db->query($sqlTicket);
+            $this->db->bind(':voorstellingId', $voorstellingId);
             $this->db->bind(':barcode', $data['barcode']);
             $this->db->bind(':tijd', $data['tijd']);
             $this->db->bind(':datum', $data['datum']);
-            $this->db->bind(':nummer', $data['nummer']);
-            $this->db->bind(':status', $data['status']);
-            $this->db->execute();
-            return true;
+            $this->db->bind(':nummer', $data['Nummer']);
+
+            return $this->db->execute();
         } catch (PDOException $e) {
-            error_log('insertTicket error: ' . $e->getMessage());
+            error_log('Ticket creation error: ' . $e->getMessage());
             return false;
         }
     }
