@@ -1,8 +1,7 @@
 <?php require   APPROOT . '/views/includes/b-header.php'; ?>
 
 <body style="background-color: #2a3d45; color: white;">
-    <div class="container" style="margin-top: 10rem;">
-        <?php if (!empty($data['message'])): ?>
+    <?php if (!empty($data['message'])): ?>
             <div class="row mb-3" style="display:<?= $data['message']; ?>">
                 <div class="col-3"></div>
                 <div class="col-6 text-begin text-warning">
@@ -13,6 +12,7 @@
                 <div class="col-3"></div>
             </div>
         <?php endif; ?>
+    <div class="container" style="margin-top: 10rem;">
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6 text-begin text-white">
@@ -27,8 +27,8 @@
             <div class="col-6">
                 <form action="<?= URLROOT; ?>/tickets/create" method="post">
                     <div class="mb-3">
-                        <label for="name" class="form-label text-white">Naam</label>
-                        <input name="naam" type="text" class="form-control" id="name" value="<?= htmlspecialchars($_POST['voorstellingId'] ?? ''); ?>" required>
+                        <label for="voorstelling" class="form-label text-white">Naam</label>
+                        <input name="voorstelling" type="text" class="form-control" id="voorstelling" value="<?= htmlspecialchars($_POST['voorstelling'] ?? ''); ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="barcode" class="form-label text-white">Barcode</label>
@@ -39,17 +39,14 @@
                         <input name="datum" type="date" class="form-control" id="datum" value="<?= htmlspecialchars($_POST['datum'] ?? ''); ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="time" class="form-label text-white">Time</label>
-                        <input name="time" type="time" class="form-control" id="time" value="<?= htmlspecialchars($_POST['Tijd'] ?? ''); ?>" required>
+                        <label for="tijd" class="form-label text-white">Time</label>
+                        <input name="tijd" type="time" class="form-control" id="tijd" value="<?= htmlspecialchars($_POST['tijd'] ?? ''); ?>" required>
                     </div>
                     <div class="mb-3">
-                        <label for="stoel" class="form-label text-white">stoel</label>
-                        <input name="stoel" type="text" class="form-control" id="stoel" value="<?= htmlspecialchars($_POST['Nummer'] ?? ''); ?>" minlength="1" maxlength="3" required>
+                        <label for="Nummer" class="form-label text-white">stoel</label>
+                        <input name="Nummer" type="text" class="form-control" id="Nummer" value="<?= htmlspecialchars($_POST['Nummer'] ?? ''); ?>" minlength="1" maxlength="3" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="status" class="text-white">Status</label>
-
-                    </div>
+                    
                     <button type="submit" class="btn btn-primary">Verstuur</button>
                 </form>
 
@@ -57,24 +54,7 @@
             </div>
             <div class="col-3"></div>
         </div>
-
     </div>
 </body>
 
-<script>
-    function generateRandomBarcode() {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let prefix = "";
-
-        for (let i = 0; i < 3; i++) {
-            prefix += letters.charAt(Math.floor(Math.random() * letters.length));
-        }
-
-        const randomDigits = Math.floor(100 + Math.random() * 900); // 100–999
-        return prefix + randomDigits;
-    }
-    // Set barcode input value when the page loads
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("barcode").value = generateRandomBarcode();
-    });
-</script>
+<script src="/public/js/codegenarator.js"></script>

@@ -1,60 +1,8 @@
 <?php
 require_once APPROOT . '/config/config.php';
 require_once APPROOT . '/views/includes/b-header.php';
+require_once APPROOT . '/views/includes/header.php';
 ?>
-
-<style>
-    /* Custom styles to preserve your design */
-    .navbar-aurora {
-        background-color: #1a1a1a;
-        border-bottom: 2px solid #e50914;
-        padding: 10px 0;
-    }
-
-    .navbar-brand {
-        display: flex;
-        align-items: center;
-        color: #f4f4f4 !important;
-        font-weight: bold;
-    }
-
-    .navbar-brand img {
-        height: 40px;
-        margin-right: 10px;
-    }
-
-    .nav-link {
-        color: #f4f4f4 !important;
-        font-weight: bold;
-        padding: 0.5rem 1rem !important;
-    }
-
-    .nav-link:hover {
-        color: #e50914 !important;
-    }
-
-    .profile-icon {
-        height: 24px;
-        margin-left: 15px;
-    }
-
-    /* Add these new styles */
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        z-index: 1030;
-    }
-
-    body {
-        padding-top: 60px;
-        /* To account for fixed navbar */
-    }
-</style>
-
-<?php require_once APPROOT . '/views/includes/header.php'; ?>
 
 <body style="background-color: #2a3d45; color: white;">
     <div class="container" style="margin-top: 15rem;">
@@ -127,22 +75,4 @@ require_once APPROOT . '/views/includes/b-header.php';
 <?php require APPROOT . '/views/includes/footer.php'; ?>
 <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
 
-<script>
-    document.getElementById('searchInput').addEventListener('keyup', function() {
-        let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll('table tbody tr');
-        let found = false;
-
-        rows.forEach(row => {
-            let voorstelling = row.querySelector('td').textContent.toLowerCase();
-            if (voorstelling.includes(filter)) {
-                row.style.display = '';
-                found = true;
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        document.getElementById('notFoundMsg').style.display = found ? 'none' : '';
-    });
-</script>
+<script src="/public/js/searchbar.js"></script>

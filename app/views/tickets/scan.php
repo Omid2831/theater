@@ -7,42 +7,7 @@
     <title>Ticket Scannen</title>
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-
-        .scan-container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .scanner-box {
-            border: 2px dashed #ccc;
-            border-radius: 8px;
-            margin: 20px 0;
-            padding: 10px;
-        }
-
-        .ticket-result {
-            margin-top: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f1f8ff;
-        }
-
-        .status-badge {
-            font-size: 1.1rem;
-            padding: 8px 15px;
-            border-radius: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="/public/css/scan.css">
 </head>
 
 <body>
@@ -90,26 +55,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // This function is triggered after a barcode is successfully scanned.
-        function onScanSuccess(decodedText) {
-            document.getElementById('barcode-input').value = decodedText;
-            document.getElementById('barcode-form').submit();
-        }
-
-        <?php if (!$data['ticket']): ?>
-            // start the scanner
-            const scanner = new Html5QrcodeScanner('reader', {
-                fps: 10,
-                qrbox: {
-                    width: 250,
-                    height: 250
-                },
-                formatsToSupport: [Html5QrcodeSupportedFormats.CODE_128]
-            });
-            scanner.render(onScanSuccess);
-        <?php endif; ?>
-    </script>
+    <script src="/public/js/onscan.js"></script>
 </body>
 
 </html>
