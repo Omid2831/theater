@@ -58,7 +58,7 @@ require_once APPROOT . '/views/includes/header.php';
                                             <a href="<?= URLROOT ?>/Tickets/scan?barcode=<?= $tickets->Opmerking ?>" class="btn btn-primary">Scan</a>
                                         </td>
                                     </tr>
-                                <?php endforeach ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
