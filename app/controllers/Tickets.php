@@ -1,13 +1,12 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 class Tickets extends BaseController
 {
     private $ticketModel;
+    private $voorstellingen;
     public function __construct()
     {
         $this->ticketModel = $this->model('TicketModel');
+        $this->voorstellingen = $this->model('VoorstellingenModel');
     }
     public function index($firstname = NULL, $infix = NULL, $lastname = NULL)
     {
@@ -69,55 +68,52 @@ class Tickets extends BaseController
 
     public function create()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Initialize data array
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Sanitize and collect POST data
+
             $data = [
-                'title' => 'Ticket Aanmaken',
-                'voorstelling' => trim($_POST['voorstelling']),
-                'beschrijving' => trim($_POST['beschrijving']),
-                'barcode' => trim($_POST['barcode']),
-                'datum' => trim($_POST['datum']),
-                'tijd' => trim($_POST['tijd']),
-                'Nummer' => trim($_POST['Nummer']),
+                'VoorstellingId' => $_POST['VoorstellingId'] ?? '',
+                'Nummer'         => $_POST['Nummer'] ?? '',
+                'Datum'          => $_POST['datum'] ?? '',
+                'Tijd'           => $_POST['tijd'] ?? '',
+                'Barcode'        => $_POST['barcode'] ?? '',
+                'Status'         => $_POST['Status'] ?? '',
+                'PrijsId'        => 1, // Or get from form if needed
+                'title'          => 'Ticket Aanmaken',
+                'vo'             => $this->voorstellingen->GetAllVoorstellingen(),
+                'success_message' => '',
+                'error'          => ''
             ];
 
-            // Validate empty fields
-            if (
-                empty($data['voorstelling']) ||
-                empty($data['beschrijving']) ||
-                empty($data['barcode']) ||
-                empty($data['datum']) ||
-                empty($data['tijd']) ||
-                empty($data['Nummer'])
-            ) {
-                $data['error'] = '<div class="alert alert-danger text-center" role="alert"><h2>Vul alle velden in</h2></div>';
-                $this->view('tickets/create', $data);
-                return;
-            }
+            // Check if seat is already taken for this show
+            $seatTaken = $this->ticketModel->isSeatTaken($data['VoorstellingId'], $data['Nummer']);
 
-            // Additional validation (example - validate seat number is numeric)
-            if (!is_numeric($data['Nummer'])) {
-                $data['error'] = '<div class="alert alert-danger text-center" role="alert"><h2>Ongeldig stoelnummer</h2></div>';
+            if ($seatTaken) {
+                $data['error'] = 'Geen besckbaarheid';
                 $this->view('tickets/create', $data);
                 return;
             }
 
             // Try to create the ticket
-            if ($this->ticketModel->create($data)) {
-                // Success - show success message and redirect
-                $_SESSION['success_message'] = 'Ticket succesvol aangemaakt!';
-                header('Location: ' . URLROOT . '/tickets/index');
-                exit;
-            } else {
-                // Database error
-                $data['error'] = '<div class="alert alert-danger">Fout bij aanmaken ticket</div>';
+            if ($this->ticketModel->create($data) && $this->voorstellingen->GetAllVoorstellingen()) {
+                $data['success_message'] = 'Uw bezoek is succesvol gereserveerd';
+                header('Refresh: 3; URL=' . URLROOT . '/tickets/index');
                 $this->view('tickets/create', $data);
+                return;
+            } else {
+                // Debug if there is a situation to see what happend and want to debug it!
+                echo "<pre>";
+                var_dump($this->ticketModel->getError());
+                echo "</pre>";
+                die();
             }
         }
-        // GET request - just show the form
+
+        // GET: show form
+        $result = $this->voorstellingen->GetAllVoorstellingen();
         $data = [
             'title' => 'Ticket Aanmaken',
-            'message' => '',
+            'vo' => $result,
         ];
         $this->view('tickets/create', $data);
     }

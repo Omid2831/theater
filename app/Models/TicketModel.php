@@ -59,72 +59,38 @@ class TicketModel
     /* We gaan een functie maken om gegevens uit de database op te halen,
 waarmee we een reserveringsformulier kunnen bouwen */
 
-     public function create($data)
-    {
-        try {
-            //  voorstelling
-            $sqlVoorstelling = "SELECT Id FROM Voorstelling WHERE Naam = :naam";
-            $this->db->query($sqlVoorstelling);
-            $this->db->bind(':naam', $data['voorstelling']);
-            $voorstelling = $this->db->single();
-
-            if (!$voorstelling) {
-                // Create new voorstelling if it doesn't exist
-                $sqlNewVoorstelling = "INSERT INTO Voorstelling 
-                                  ( Naam, Beschrijving, Datum, Tijd, MaxAantalTickets, Beschikbaarheid, IsActief, DatumAangemaakt, DatumGewijzigd)
-                                  VALUES 
-                                  ( :naam, :beschrijving, :datum, :tijd, 100, '40', 1, NOW(), NOW())";
-
-                $this->db->query($sqlNewVoorstelling);
-                $this->db->bind(':naam', $data['voorstelling']);
-                $this->db->bind(':beschrijving', $data['beschrijving']);
-                $this->db->bind(':datum', $data['datum']);
-                $this->db->bind(':tijd', $data['tijd']);
-                $this->db->execute();
-
-                $voorstellingId = $this->db->lastInsertId();
-            } else {
-                $voorstellingId = $voorstelling->Id;
-            }
-
-            // Now insert the ticket with the proper foreign keys
-            $sqlTicket = "INSERT INTO Ticket (
-                     BezoekerId,
-                     VoorstellingId,
-                     PrijsId,
-                     Barcode,
-                     Tijd,
-                     Datum,
-                     Nummer,
-                     Status,
-                     IsActief,
-                     DatumAangemaakt,
-                     DatumGewijzigd
-                     ) VALUES (
-                     1,  
-                     :voorstellingId,
-                     1,  
-                     :barcode,
-                     :tijd,
-                     :datum,
-                     :nummer,
-                     'Geboekt',
-                     1,
-                     NOW(),
-                     NOW()
-                     )";
-
-            $this->db->query($sqlTicket);
-            $this->db->bind(':voorstellingId', $voorstellingId);
-            $this->db->bind(':barcode', $data['barcode']);
-            $this->db->bind(':tijd', $data['tijd']);
-            $this->db->bind(':datum', $data['datum']);
-            $this->db->bind(':nummer', $data['Nummer']);
-
-            return $this->db->execute();
-        } catch (PDOException $e) {
-            error_log('Ticket creation error: ' . $e->getMessage());
+    public function create($data)
+{
+    try {
+        $sql = "INSERT INTO Ticket (VoorstellingId, PrijsId, Nummer, Barcode, Status, Datum, Tijd)
+                VALUES (:voorstellingId, :prijsId, :nummer, :barcode, :status, :datum, :tijd)";
+        $this->db->query($sql);
+        $this->db->bind(':voorstellingId', $data['VoorstellingId']);
+        $this->db->bind(':prijsId', $data['PrijsId'] ?? 1); // Default to 1 if missing
+        $this->db->bind(':nummer', $data['Nummer']);
+        $this->db->bind(':barcode', $data['Barcode']);
+        $this->db->bind(':status', $data['Status'] ?? 'Actief'); // Default status
+        $this->db->bind(':datum', $data['Datum']);
+        $this->db->bind(':tijd', $data['Tijd']);
+        
+        if ($this->db->execute()) {
+            return true;
+        } else {
             return false;
         }
+    } catch (PDOException $e) {
+        error_log('Ticket creation failed: ' . $e->getMessage());
+        return false;
+    }
+}
+/* here we are comparing the data of seated ppl for the shows */
+    public function isSeatTaken($voorstellingId, $nummer)
+    {
+        $sql = "SELECT COUNT(*) as count FROM Ticket WHERE VoorstellingId = :voorstellingId AND Nummer = :nummer";
+        $this->db->query($sql);
+        $this->db->bind(':voorstellingId', $voorstellingId);
+        $this->db->bind(':nummer', $nummer);
+        $row = $this->db->single();
+        return $row && $row->count > 0;
     }
 }
