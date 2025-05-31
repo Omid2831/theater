@@ -103,6 +103,7 @@ class Tickets extends BaseController
             } else {
                 // Debug if there is a situation to see what happend and want to debug it!
                 $data['error'] = 'Er is een fout opgetreden bij het aanmaken van het ticket.';
+                header('Refresh: 3; URL=' . URLROOT . '/tickets/create');
                 $this->view('tickets/create', $data);
                 return;
             }
