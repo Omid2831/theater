@@ -102,10 +102,9 @@ class Tickets extends BaseController
                 return;
             } else {
                 // Debug if there is a situation to see what happend and want to debug it!
-                echo "<pre>";
-                var_dump($this->ticketModel->getError());
-                echo "</pre>";
-                die();
+                $data['error'] = 'Er is een fout opgetreden bij het aanmaken van het ticket.';
+                $this->view('tickets/create', $data);
+                return;
             }
         }
 
