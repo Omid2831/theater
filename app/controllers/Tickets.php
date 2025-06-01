@@ -119,7 +119,7 @@ class Tickets extends BaseController
                 }
 
                 // If all checks pass, show success message
-                $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt! (Tussen 10:00 AM en 11:00 PM)';
+                $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt!';
                 header('Refresh:3; URL=' . URLROOT . '/tickets/index');
                 $this->view('tickets/create', $data);
                 exit;
