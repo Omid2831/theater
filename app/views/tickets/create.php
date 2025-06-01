@@ -1,4 +1,5 @@
 <?php require APPROOT . '/views/includes/b-header.php'; ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <body style="background-color: #2a3d45; color: white;">
 
@@ -48,7 +49,7 @@
                             <?php foreach ($data['vo'] as $Voorstellingen): ?>
                                 <option value="<?= htmlspecialchars($Voorstellingen->Id); ?>"
                                     <?= (isset($data['vo']) && $data['vo'] == $Voorstellingen->Id) ? 'selected' : '' ?>>
-                                    <?= htmlspecialchars($Voorstellingen->Naam)?> 
+                                    <?= htmlspecialchars($Voorstellingen->Naam) ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -100,6 +101,7 @@
                             id="Nummer"
                             value="<?= htmlspecialchars($data['Nummer'] ?? '') ?>"
                             min="1" max="100"
+                            minlength="1" maxlength="3"
                             required>
                         <small class="text-light">Select a seat between 1 and 100</small>
                     </div>
@@ -125,16 +127,8 @@
         </div>
     </div>
 
-    <script src="<?= URLROOT ?>/public/js/codegenarator.js"></script>
-    <script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
-    <script>
-        function generateBarcode() {
-            if (typeof generateRandomBarcode === 'function') {
-                const barcode = generateRandomBarcode();
-                document.getElementById('barcode').value = barcode;
-            } else {
-                alert('Barcode generator function not found.');
-            }
-        }
-    </script>
+<script src="<?= URLROOT ?>/public/js/cdGenartor.js"></script>
+<script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
 </body>
