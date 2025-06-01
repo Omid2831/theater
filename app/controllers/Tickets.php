@@ -66,11 +66,11 @@ class Tickets extends BaseController
      * @return void
      */
 
+
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Sanitize and collect POST data
-
+            // Collect POST data
             $data = [
                 'VoorstellingId' => $_POST['VoorstellingId'] ?? '',
                 'Nummer'         => $_POST['Nummer'] ?? '',
@@ -85,31 +85,48 @@ class Tickets extends BaseController
                 'error'          => ''
             ];
 
+
+
             // Check if seat is already taken for this show
             $seatTaken = $this->ticketModel->isSeatTaken($data['VoorstellingId'], $data['Nummer']);
-
             if ($seatTaken) {
-                $data['error'] = 'Geen besckbaarheid';
+                $data['error'] = 'Geen beschikbaarheid';
+                header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                 $this->view('tickets/create', $data);
                 return;
             }
 
-            // Try to create the ticket
-            if ($this->ticketModel->create($data) && $this->voorstellingen->GetAllVoorstellingen()) {
-                $data['success_message'] = 'Uw bezoek is succesvol gereserveerd';
-                header('Refresh: 3; URL=' . URLROOT . '/tickets/index');
+            if ($this->voorstellingen->GetAllVoorstellingen() && $this->ticketModel->create($data)) {
+
+                // Validate time format (HH:MM)
+                if (empty($data['Tijd']) || !preg_match('/^\d{1,2}:\d{2} ?(AM|PM)?$/i', $data['Tijd'])) {
+                    $data['error'] = 'Ongeldige tijd ingevoerd. Gebruik het formaat HH:MM AM/PM.';
+                    error_log('Invalid tijd format: ' . $data['Tijd']); // Debugging log
+                    $this->view('tickets/create', $data);
+                    return;
+                }
+
+                // Parse and validate time
+                $parsedTime = strtotime($data['Tijd']);
+                $hour = (int)date('H:i A', $parsedTime); // Extract the hour in 24-hour format (0–23)
+
+                // Check if time is between 11:00 PM and 10:00 AM
+                if ($hour < 10 || $hour >= 23) {
+                    $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
+                    header('Refresh:3; URL=' . URLROOT . '/tickets/create');
+                    $this->view('tickets/create', $data);
+                    return;
+                }
+
+                // If all checks pass, show success message
+                $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt! (Tussen 10:00 AM en 11:00 PM)';
+                header('Refresh:3; URL=' . URLROOT . '/tickets/index');
                 $this->view('tickets/create', $data);
-                return;
-            } else {
-                // Debug if there is a situation to see what happend and want to debug it!
-                $data['error'] = 'Er is een fout opgetreden bij het aanmaken van het ticket.';
-                header('Refresh: 3; URL=' . URLROOT . '/tickets/create');
-                $this->view('tickets/create', $data);
-                return;
+                exit;
             }
         }
 
-        // GET: show form
+        // GET: Show form
         $result = $this->voorstellingen->GetAllVoorstellingen();
         $data = [
             'title' => 'Ticket Aanmaken',

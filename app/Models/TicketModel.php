@@ -80,7 +80,7 @@ waarmee we een reserveringsformulier kunnen bouwen */
         }
     } catch (PDOException $e) {
         error_log('Ticket creation failed: ' . $e->getMessage());
-        return false;
+        return 'Error: ' . $e->getMessage();
     }
 }
 /* here we are comparing the data of seated ppl for the shows */

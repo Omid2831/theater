@@ -7,8 +7,8 @@
     <?php if (!empty($data['success_message'])): ?>
         <div class="row mb-3">
             <div class="col-3"></div>
-            <div class="col-6">
-                <div class="alert alert-success" role="alert">
+            <div class="col-6 ">
+                <div class="alert text-center alert-success" role="alert">
                     <?= htmlspecialchars($data['success_message']) ?>
                 </div>
             </div>
@@ -17,8 +17,8 @@
     <?php elseif (!empty($data['error'])): ?>
         <div class="row mb-3">
             <div class="col-3"></div>
-            <div class="col-6">
-                <div class="alert alert-danger" role="alert">
+            <div class="col-6 ">
+                <div class="alert text-center alert-danger" role="alert">
                     <?= htmlspecialchars($data['error']) ?>
                 </div>
             </div>
@@ -85,10 +85,10 @@
                         <label for="tijd" class="form-label">Tijd</label>
                         <input
                             name="tijd"
-                            type="time"
+                            type="text"
                             class="form-control"
                             id="tijd"
-                            value="<?= htmlspecialchars($data['tijd'] ?? '') ?>"
+                            value="<?= htmlspecialchars($data['Tijd'] ?? '') ?>"
                             required>
                     </div>
 
@@ -127,8 +127,8 @@
         </div>
     </div>
 
-<script src="<?= URLROOT ?>/public/js/cdGenartor.js"></script>
-<script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
+    <script src="<?= URLROOT ?>/public/js/cdGenartor.js"></script>
+    <script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
 </body>
