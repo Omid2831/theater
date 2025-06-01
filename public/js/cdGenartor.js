@@ -9,15 +9,22 @@ function generateRandomBarcode() {
   const randomDigits = Math.floor(100 + Math.random() * 900); // 100–999
   return prefix + randomDigits;
 }
+
 // Set barcode input value when the page loads
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("barcode").value = generateRandomBarcode();
+  const barcodeInput = document.getElementById("barcode");
+  if (barcodeInput) {
+    barcodeInput.value = generateRandomBarcode();
+  }
 });
 
 function generateBarcode() {
   if (typeof generateRandomBarcode === "function") {
     const barcode = generateRandomBarcode();
-    document.getElementById("barcode").value = barcode;
+    const barcodeInput = document.getElementById("barcode");
+    if (barcodeInput) {
+      barcodeInput.value = barcode;
+    }
   } else {
     alert("Barcode generator function not found.");
   }
