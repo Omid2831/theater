@@ -1,15 +1,24 @@
 function generateRandomBarcode() {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let prefix = "";
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let prefix = "";
 
-        for (let i = 0; i < 3; i++) {
-            prefix += letters.charAt(Math.floor(Math.random() * letters.length));
-        }
+  for (let i = 0; i < 3; i++) {
+    prefix += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
 
-        const randomDigits = Math.floor(100 + Math.random() * 900); // 100–999
-        return prefix + randomDigits;
-    }
-    // Set barcode input value when the page loads
-    document.addEventListener("DOMContentLoaded", function() {
-        document.getElementById("barcode").value = generateRandomBarcode();
-    });
+  const randomDigits = Math.floor(100 + Math.random() * 900); // 100–999
+  return prefix + randomDigits;
+}
+// Set barcode input value when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("barcode").value = generateRandomBarcode();
+});
+
+function generateBarcode() {
+  if (typeof generateRandomBarcode === "function") {
+    const barcode = generateRandomBarcode();
+    document.getElementById("barcode").value = barcode;
+  } else {
+    alert("Barcode generator function not found.");
+  }
+}
