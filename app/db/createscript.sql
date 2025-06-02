@@ -20,17 +20,7 @@ CREATE TABLE
         Datumaangemaakt DATETIME(6) NOT NULL,
         Datumgewijzigd DATETIME(6) NOT NULL
     );
-    INSERT INTO Gebruiker (
-    Id, Voornaam, Tussenvoegsel, Achternaam, Gebruikersnaam, 
-    Wachtwoord, IsIngelogd, Ingelogd, Uitgelogd, 
-    Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd
-)
-VALUES 
-(101, 'Odi', NULL, 'Matar', 'jan.jansen', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Bezoeker', GETDATE(), GETDATE()),
-(102, 'Sophie', 'de', 'Vries', 'sophie.vries', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Medewerker', GETDATE(), GETDATE()),
-(103, 'Mark', NULL, 'Pieters', 'mark.pieters', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Administrator', GETDATE(), GETDATE());
-(104, 'Eva', 'van', 'Dijk', 'eva.dijk', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Gast', GETDATE(), GETDATE()),
-(105, 'Tom', NULL, 'Smit', 'tom.smit', 'wachtwoord123', 0, NULL, NULL, 1, 'Gebruiker met rol Bezoeker', GETDATE(), GETDATE());
+
 
 CREATE TABLE
     Rol (
@@ -43,14 +33,6 @@ CREATE TABLE
         Datumgewijzigd DATETIME(6) NOT NULL,
         FOREIGN KEY (GebruikerId) REFERENCES Gebruiker (Id)
     );
-
-    INSERT INTO Rol (Id, GebruikerId, Naam, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
-VALUES 
-(1, 101, 'Bezoeker', 1, 'Standaard bezoekersrol', GETDATE(), GETDATE()),
-(2, 102, 'Medewerker', 1, 'Toegang tot medewerkersfunctionaliteiten', GETDATE(), GETDATE()),
-(3, 103, 'Administrator', 1, 'Volledige rechten', GETDATE(), GETDATE());
-(4, 104, 'Gast', 1, 'Gastrol voor tijdelijke toegang', GETDATE(), GETDATE()),
-
 
 CREATE TABLE
     Contact (
@@ -155,16 +137,17 @@ CREATE TABLE
 -- gebruikers
 INSERT INTO Gebruiker (Id, Voornaam, Tussenvoegsel, Achternaam, Gebruikersnaam, Wachtwoord, IsIngelogd, Ingelogd, Uitgelogd, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
 VALUES 
-(1, 'Jan', NULL, 'Jansen', 'jan.j', 'hashed_pw1', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
+(1, 'Jan', NULL, 'Jansen', 'jan.j', 'Matar1234@', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (2, 'Lisa', 'van', 'Dijk', 'lisa.d', 'hashed_pw2', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (3, 'Mark', NULL, 'Bos', 'mark.b', 'hashed_pw3', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (4, 'Eva', 'de', 'Vries', 'eva.v', 'hashed_pw4', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (5, 'Tom', NULL, 'Smit', 'tom.s', 'hashed_pw5', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6));
 
+
 -- rollen
 INSERT INTO Rol (Id, GebruikerId, Naam, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
 VALUES 
-(1, 1, 'Beheerder', 1, NULL, SYSDATE(6), SYSDATE(6)),
+(1, 1, 'Administrator', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (2, 2, 'Medewerker', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (3, 3, 'Bezoeker', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (4, 4, 'Bezoeker', 1, NULL, SYSDATE(6), SYSDATE(6)),

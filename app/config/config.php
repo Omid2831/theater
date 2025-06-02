@@ -11,7 +11,7 @@ define('DB_PASS', '');
 /**
  * De naam van de virtualhost
  */
-define('URLROOT', 'http://theater/');  // De naam van de virtualhost define('URLROOT', 'http://theater/'); bij odi
+define('URLROOT', 'http://theater');  // De naam van de virtualhost define('URLROOT', 'http://theater/'); bij odi
  
 
 

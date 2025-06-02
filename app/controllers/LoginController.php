@@ -7,6 +7,7 @@ class LoginController extends Controller {
     private $db;
     private $userModel;
 
+
     public function __construct() {
         $this->userModel = $this->model('UserModel');
     }
@@ -17,10 +18,14 @@ class LoginController extends Controller {
             $wachtwoord = trim($_POST['wachtwoord']);
 
             $user = $this->userModel->validateUser($gebruikersnaam, $wachtwoord);
+           
 
             if ($user) {
+                $rol = $this->userModel->isAdministrator($user->Id); 
                 $_SESSION['gebruiker_id'] = $user->Id;
                 $_SESSION['gebruikersnaam'] = $user->Gebruikersnaam;
+                $_SESSION['rol'] = $rol; // Store the role in the session
+                $_SESSION['ingelogd'] = true;
 
 
                 $this->userModel->updateLoginStatus($user->Id);
