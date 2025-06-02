@@ -21,6 +21,7 @@ CREATE TABLE
         Datumgewijzigd DATETIME(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
     );
 
+
 CREATE TABLE
     Rol (
         Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -136,16 +137,17 @@ CREATE TABLE
 -- gebruikers
 INSERT INTO Gebruiker (Id, Voornaam, Tussenvoegsel, Achternaam, Gebruikersnaam, Wachtwoord, IsIngelogd, Ingelogd, Uitgelogd, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
 VALUES 
-(1, 'Jan', NULL, 'Jansen', 'jan.j', 'hashed_pw1', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
+(1, 'Jan', NULL, 'Jansen', 'jan.j', 'Matar1234@', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (2, 'Lisa', 'van', 'Dijk', 'lisa.d', 'hashed_pw2', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (3, 'Mark', NULL, 'Bos', 'mark.b', 'hashed_pw3', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (4, 'Eva', 'de', 'Vries', 'eva.v', 'hashed_pw4', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6)),
 (5, 'Tom', NULL, 'Smit', 'tom.s', 'hashed_pw5', 0, NULL, NULL, 1, NULL, SYSDATE(6), SYSDATE(6));
 
+
 -- rollen
 INSERT INTO Rol (Id, GebruikerId, Naam, Isactief, Opmerking, Datumaangemaakt, Datumgewijzigd)
 VALUES 
-(1, 1, 'Beheerder', 1, NULL, SYSDATE(6), SYSDATE(6)),
+(1, 1, 'Administrator', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (2, 2, 'Medewerker', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (3, 3, 'Bezoeker', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (4, 4, 'Bezoeker', 1, NULL, SYSDATE(6), SYSDATE(6)),

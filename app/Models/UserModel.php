@@ -78,4 +78,18 @@ public function insert($voornaam, $tussenvoegsel, $achternaam, $gebruikersnaam, 
     }
 
 
+
+  public function isAdministrator($gebruikerId) {
+        $stmt = $this->db->query("
+            SELECT Naam FROM Rol 
+            WHERE GebruikerId = :id AND Isactief = 1
+        ");
+    $this->db->bind(':id', $gebruikerId, PDO::PARAM_INT);
+    $rol = $this->db->single();
+    if ($rol && isset($rol->Naam)) {
+        return strtolower($rol->Naam) === 'administrator';
+    }
+    return false;
+}
+
 }
