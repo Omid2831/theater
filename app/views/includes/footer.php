@@ -25,3 +25,5 @@
     <p class="mb-0 text-secondary small">&copy; <?= date("Y"); ?> Aurora Theater. Alle rechten voorbehouden.</p>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

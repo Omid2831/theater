@@ -33,7 +33,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/accountcontroller/account_overzicht">Account Overzicht</a></li>
             </ul>
                 <?php } ?>
-            <ul class="navbar-nav">
+             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
