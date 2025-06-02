@@ -20,18 +20,19 @@ class LoginController extends Controller {
             $user = $this->userModel->validateUser($gebruikersnaam, $wachtwoord);
            
 
-            if ($user) {
-                $rol = $this->userModel->isAdministrator($user->Id); 
-                $_SESSION['gebruiker_id'] = $user->Id;
-                $_SESSION['gebruikersnaam'] = $user->Gebruikersnaam;
-                $_SESSION['rol'] = $rol; // Store the role in the session
-                $_SESSION['ingelogd'] = true;
+        if ($user) {
+            $rol = $this->userModel->isAdministrator($user->Id); 
+            $_SESSION['gebruiker_id'] = $user->Id;
+            $_SESSION['gebruikersnaam'] = $user->Gebruikersnaam;
+            $_SESSION['rol'] = $rol; 
+            $_SESSION['ingelogd'] = true;
 
+            $_SESSION['login_success'] = true; 
 
-                $this->userModel->updateLoginStatus($user->Id);
+            $this->userModel->updateLoginStatus($user->Id);
 
-                header('Location: ' . URLROOT . '/Pages/index');
-                exit;
+            header('Location: ' . URLROOT . '/Pages/index');
+            exit;
 
             } else {
                 $data = ['error' => "Ongeldige gebruikersnaam of wachtwoord."];
