@@ -60,7 +60,7 @@ require_once APPROOT . '/views/includes/header.php';
                                         </td>
                                         <td>
                                             <?php if (isset($tickets->Id)): ?>
-                                                <a href="<?= URLROOT ?>/tickets/delete/<?= $tickets->Id ?>">
+                                                <a href="javascript:void(0);" onclick="confirmDeletion(<?= $tickets->Id ?>)">
                                                     <i class="bi bi-trash3-fill text-danger offset-5"></i>
                                                 </a>
                                             <?php else: ?>
@@ -86,3 +86,5 @@ require_once APPROOT . '/views/includes/header.php';
 <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
 
 <script src="/public/js/searchbar.js"></script>
+<script> const urlroot = '<?= URLROOT ?>';</script>
+<script src="/public/js/deleteConformation.js"></script>

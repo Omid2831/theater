@@ -58,3 +58,13 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </div>
 </nav>
+
+<div class="row" style="display:<?= $data['message']; ?>">
+        <div class="col-1"></div>
+        <div class="col-10 text-begin text-primary">        
+            <div class="alert alert-success" role="alert">
+                Record is verwijderd
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>

@@ -16,6 +16,7 @@ class Tickets extends BaseController
         $data = [
             'title' => 'Overzicht Tickets',
             'tickets' => $result,
+            'message' => 'none',
 
         ];
 
@@ -152,16 +153,37 @@ class Tickets extends BaseController
      */
     public function delete($Id)
     {
-        $result = $this->ticketModel->delete($Id);
-
-        header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
-
+         // Check if the record exists
+    $ticket = $this->ticketModel->findById($Id);
+    if (!$ticket) {
         $data = [
+            'message' => 'none', // Hide the notification
             'title' => 'Verwijderen',
-            'tickets' => $result,
+            'status' => 'error',
         ];
-
-        $this->index('flex');
+        header("URL=" . URLROOT . "tickets/index");
         $this->view('tickets/index', $data);
+        return;
+    }
+
+    // Attempt to delete the record
+    $result = $this->ticketModel->delete($Id);
+
+    if ($result) {
+        $data = [
+            'message' => 'block', // Show the notification
+            'title' => 'Verwijderen',
+            'status' => 'success',
+        ];
+    } else {
+        $data = [
+            'message' => 'none', // Hide the notification
+            'title' => 'Verwijderen',
+            'status' => 'error',
+        ];
+    }
+
+    // Redirect to the index page with feedback
+    $this->index('tickets/index', $data);
     }
 }
