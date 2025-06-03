@@ -37,6 +37,7 @@ require_once APPROOT . '/views/includes/header.php';
                                     <th>Stoel</th>
                                     <th>Status</th>
                                     <th>Scanbare Code</th>
+                                    <th>Verwijderen</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,7 +56,16 @@ require_once APPROOT . '/views/includes/header.php';
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="<?= URLROOT ?>/Tickets/scan?barcode=<?= $tickets->Opmerking ?>" class="btn btn-primary">Scan</a>
+                                            <a href="<?= URLROOT ?>/Tickets/scan?barcode=<?= $tickets->Opmerking ?>" class="btn btn-primary offset-3">Scan</a>
+                                        </td>
+                                        <td>
+                                            <?php if (isset($tickets->Id)): ?>
+                                                <a href="<?= URLROOT ?>/tickets/delete/<?= $tickets->Id ?>">
+                                                    <i class="bi bi-trash3-fill text-danger offset-5"></i>
+                                                </a>
+                                            <?php else: ?>
+                                                <span class="text-warning">ID ontbreekt</span>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -72,7 +82,7 @@ require_once APPROOT . '/views/includes/header.php';
 </body>
 
 
-<?php require APPROOT . '/views/includes/footer.php'; ?>
+
 <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
 
 <script src="/public/js/searchbar.js"></script>

@@ -134,4 +134,24 @@ class Tickets extends BaseController
         ];
         $this->view('tickets/create', $data);
     }
+    /**
+     * Summary of delete
+    * Deletes a ticket. This functionality is triggered when the delete button is pressed.
+     * @return void
+     */
+    public function delete($Id)
+    {
+         $result = $this->ticketModel->delete($Id);
+          
+          header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+
+          $data =[ 
+            'title' => 'Verwijderen',
+             'tickets' => $result,
+          ];
+
+          $this->index('flex');
+          $this->view('tickets/index', $data);
+        
+    }
 }

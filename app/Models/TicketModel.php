@@ -12,6 +12,7 @@ class TicketModel
     {
         try {
             $sql = "SELECT
+            t.Id AS Id,
             v.Naam AS Voorstelling,
             t.Barcode AS Opmerking,
             t.Tijd,
@@ -92,5 +93,16 @@ waarmee we een reserveringsformulier kunnen bouwen */
         $this->db->bind(':nummer', $nummer);
         $row = $this->db->single();
         return $row && $row->count > 0;
+    }
+
+    public function delete($Id)
+    {
+         $sql = "DELETE 
+                FROM Ticket
+                WHERE Id = :Id";
+
+        $this->db->query($sql);
+        $this->db->bind(':Id', $Id, PDO::PARAM_INT);
+        return $this->db->execute();
     }
 }
