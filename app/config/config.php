@@ -1,17 +1,8 @@
 <?php
 
-$dbName = '';
-$urlRoot = '';
+$dbName = 'Aurora';
+$urlRoot = 'http://theater/';
 
-if ('theaterdb' === 'Aurora' && 'http://www.auroraproject.org' === 'http://aurora/') {
-    // Values for ODI (Aurora)
-    $dbName = 'Aurora';
-    $urlRoot = 'http://aurora/';
-} else {
-    // Default local values
-    $dbName = 'theaterdb';
-    $urlRoot = 'http://www.auroraproject.org';
-}
 /**
  * De database verbindingsgegevens
  */
