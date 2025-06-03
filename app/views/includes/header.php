@@ -28,8 +28,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Home/index">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/tickets/index">Tickets</a></li>
                 <?php if (isset($_SESSION['gebruiker_id']) && $_SESSION['rol'] == 'Administrator') { ?>
+                    <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/tickets/index">Tickets</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/accountcontroller/account_overzicht">Account Overzicht</a></li>
             </ul>
                 <?php } ?>
