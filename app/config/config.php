@@ -1,7 +1,7 @@
 <?php
 
 $dbName = 'Aurora';
-$urlRoot = 'http://theater/';
+$urlRoot = 'http://theater';
 
 /**
  * De database verbindingsgegevens
