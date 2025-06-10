@@ -21,7 +21,8 @@ class Medewerkers extends BaseController
         */
        $data = [
             'title' => 'Alle medewerkers.',
-            'Medewerkers' => $result
+            'Medewerkers' => $result,
+             
        ];
 
          /**
