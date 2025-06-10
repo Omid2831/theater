@@ -186,4 +186,29 @@ class Tickets extends BaseController
     // Redirect to the index page with feedback
     $this->index('tickets/index', $data);
     }
+
+     public function update($Id = NULL)
+    {
+          $data = [
+               'title' => 'Wijzig de tickets',
+               'message' => 'none'
+          ];
+
+          if ($_SERVER['REQUEST_METHOD'] == "POST") 
+          {
+               $Id = $_POST['Id'];
+
+               $result = $this->ticketModel->updateTickets($_POST);
+
+               $data['message'] = 'flex';
+
+               header("Refresh:3 ; url=" . URLROOT . "/ticktes/index");
+          }
+
+          $data['tickets'] = $this->ticketModel->getAllTickets($Id);
+
+
+          $this->view('tickets/update', $data);
+    }
+
 }

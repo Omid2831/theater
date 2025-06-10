@@ -14,7 +14,8 @@ require_once APPROOT . '/views/includes/header.php';
             <div class="col-md-8">
                 <h2 class="text-white mb-4 text-center">Overzicht van de tickets</h2>
                 <div class="col-10 text-begin mb-3 text-dark" style="position: relative; right: 12rem;">
-                    <a href="<?= URLROOT ?>/tickets/create" class="btn btn-danger" style="background-color:rgb(121, 6, 13) ;" role="button">ReserveringsPlan</a>
+                    <a href="<?= URLROOT ?>/tickets/create" class="btn btn-danger mt-2" style="background-color:rgb(121, 6, 13) ;" role="button">ReserveringsPlan</a>
+                    <br>
                 </div>
                 <?php if (empty($data['tickets'])): ?>
                     <div class="alert alert-info text-center">Geen tickets gevonden.</div>
@@ -38,6 +39,7 @@ require_once APPROOT . '/views/includes/header.php';
                                     <th>Status</th>
                                     <th>Scanbare Code</th>
                                     <th>Verwijderen</th>
+                                    <th>Update</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,6 +69,9 @@ require_once APPROOT . '/views/includes/header.php';
                                                 <span class="text-warning">ID ontbreekt</span>
                                             <?php endif; ?>
                                         </td>
+                                        <td>
+                                            <a href="<?= URLROOT ?>/tickets/update" class="btn btn-primary" >WijzigingsPlan</a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -86,5 +91,7 @@ require_once APPROOT . '/views/includes/header.php';
 <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
 
 <script src="/public/js/searchbar.js"></script>
-<script> const urlroot = '<?= URLROOT ?>';</script>
+<script>
+    const urlroot = '<?= URLROOT ?>';
+</script>
 <script src="/public/js/deleteConformation.js"></script>

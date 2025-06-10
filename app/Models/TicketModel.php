@@ -122,4 +122,37 @@ waarmee we een reserveringsformulier kunnen bouwen */
         $this->db->bind(':Id', $id, PDO::PARAM_INT);
         return $this->db->single();
     }
+  /**
+     * Update ticket details.
+     * @param array $data
+     * @return bool|string
+     */
+    public function updateTickets($data)
+    {
+        try {
+            $sql = "UPDATE Ticket SET
+                VoorstellingId = :voorstellingId,
+                PrijsId = :prijsId,
+                Nummer = :nummer,
+                Barcode = :barcode,
+                Status = :status,
+                Datum = :datum,
+                Tijd = :tijd
+                WHERE Id = :id";
+            $this->db->query($sql);
+            $this->db->bind(':voorstellingId', $data['VoorstellingId']);
+            $this->db->bind(':prijsId', $data['PrijsId']);
+            $this->db->bind(':nummer', $data['Nummer']);
+            $this->db->bind(':barcode', $data['Barcode']);
+            $this->db->bind(':status', $data['Status']);
+            $this->db->bind(':datum', $data['Datum']);
+            $this->db->bind(':tijd', $data['Tijd']);
+            $this->db->bind(':id', $data['Id'], PDO::PARAM_INT);
+
+            return $this->db->execute();
+        } catch (PDOException $e) {
+            error_log('Update error: ' . $e->getMessage());
+            return 'Error: ' . $e->getMessage();
+        }
+    }
 }
