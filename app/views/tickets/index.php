@@ -6,6 +6,15 @@ require_once APPROOT . '/views/includes/header.php';
 
 <body style="background-color: #2a3d45; color: white;">
     <div class="container" style="margin-top: 15rem;">
+        <div class="row" style="display:<?= $data['message']; ?>">
+            <div class="col-1"></div>
+            <div class="col-10 text-begin text-primary">
+                <div class="alert alert-success" role="alert">
+                    Record is verwijderd
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
         <div class="row">
             <!-- Left spacer - 2 columns -->
             <div class="col-md-2"></div>
@@ -62,7 +71,7 @@ require_once APPROOT . '/views/includes/header.php';
                                         </td>
                                         <td>
                                             <?php if (isset($tickets->Id)): ?>
-                                                <a href="javascript:void(0);" onclick="confirmDeletion(<?= $tickets->Id ?>)">
+                                                <a href="javascript:void(<?= URLROOT ?>/tickets/index/<?= $tickets->Id ?>);" onclick="confirmDeletion(<?= $tickets->Id ?>)">
                                                     <i class="bi bi-trash3-fill text-danger offset-5"></i>
                                                 </a>
                                             <?php else: ?>
@@ -70,7 +79,7 @@ require_once APPROOT . '/views/includes/header.php';
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a href="<?= URLROOT ?>/tickets/update" class="btn btn-primary" >WijzigingsPlan</a>
+                                            <a href="<?= URLROOT ?>/tickets/update" class="btn btn-primary">WijzigingsPlan</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

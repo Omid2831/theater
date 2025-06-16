@@ -8,16 +8,12 @@ class Tickets extends BaseController
         $this->ticketModel = $this->model('TicketModel');
         $this->voorstellingen = $this->model('VoorstellingenModel');
     }
-    public function index($firstname = NULL, $infix = NULL, $lastname = NULL)
+    public function index($message = 'none', $firstname = NULL, $infix = NULL, $lastname = NULL)
     {
-
-
-        $result = $this->ticketModel->getAllTickets();
         $data = [
             'title' => 'Overzicht Tickets',
-            'tickets' => $result,
-            'message' => 'none',
-
+            'tickets' => $this->ticketModel->getAllTickets(),
+            'message' => $message,
         ];
 
         $this->view('tickets/index', $data);
@@ -107,7 +103,7 @@ class Tickets extends BaseController
                     return;
                 }
 
-                
+
 
                 // Parse and validate time
                 $parsedTime = strtotime($data['Tijd']);
@@ -153,62 +149,33 @@ class Tickets extends BaseController
      */
     public function delete($Id)
     {
-         // Check if the record exists
-    $ticket = $this->ticketModel->findById($Id);
-    if (!$ticket) {
-        $data = [
-            'message' => 'none', // Hide the notification
-            'title' => 'Verwijderen',
-            'status' => 'error',
-        ];
-        header("URL=" . URLROOT . "tickets/index");
-        $this->view('tickets/index', $data);
-        return;
+         $this->ticketModel->delete($Id);
+          
+          header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+
+          $this->index('flex');
     }
 
-    // Attempt to delete the record
-    $result = $this->ticketModel->delete($Id);
-
-    if ($result) {
-        $data = [
-            'message' => 'block', // Show the notification
-            'title' => 'Verwijderen',
-            'status' => 'success',
-        ];
-    } else {
-        $data = [
-            'message' => 'none', // Hide the notification
-            'title' => 'Verwijderen',
-            'status' => 'error',
-        ];
-    }
-
-    // Redirect to the index page with feedback
-    $this->index('tickets/index', $data);
-    }
-
-     public function update($Id = NULL)
+    public function update($Id = NULL)
     {
-          $data = [
-               'title' => 'Wijzig de tickets',
-               'message' => 'none'
-          ];
+        $data = [
+            'title' => 'Wijzig de tickets',
+            'message' => 'none'
+        ];
 
-          if ($_SERVER['REQUEST_METHOD'] == "POST") 
-          {
-               $Id = $_POST['Id'];
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $Id = $_POST['Id'];
 
-               $result = $this->ticketModel->updateTickets($_POST);
+            $result = $this->ticketModel->updateTickets($_POST);
 
-               $data['message'] = 'flex';
+            $data['message'] = 'flex';
 
-               header("Refresh:3 ; url=" . URLROOT . "/ticktes/index");
-          }
+            header("Refresh:3 ; url=" . URLROOT . "/ticktes/index");
+        }
 
-          $data['tickets'] = $this->ticketModel->getAllTickets($Id);
+        $data['tickets'] = $this->ticketModel->getAllTickets($Id);
 
 
-          $this->view('tickets/update', $data);
+        $this->view('tickets/update', $data);
     }
-
 }
