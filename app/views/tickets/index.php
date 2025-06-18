@@ -97,10 +97,10 @@ require_once APPROOT . '/views/includes/header.php';
 
 
 
-<?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
 
 <script src="/public/js/searchbar.js"></script>
 <script>
     const urlroot = '<?= URLROOT ?>';
 </script>
 <script src="/public/js/deleteConformation.js"></script>
+<?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
