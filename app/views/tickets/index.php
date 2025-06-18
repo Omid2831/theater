@@ -79,7 +79,7 @@ require_once APPROOT . '/views/includes/header.php';
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a href="<?= URLROOT ?>/tickets/update" class="btn btn-primary">WijzigingsPlan</a>
+                                            <a href="<?= URLROOT ?>/tickets/update/<?= $tickets->Id ?>" class="btn btn-primary">WijzigingsPlan</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
