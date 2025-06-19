@@ -4,7 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 ?>
 <?php require_once APPROOT . '/config/config.php'; ?>
-// ...existing code...
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<?= URLROOT ?>/css/footer.css">
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
@@ -28,8 +28,8 @@ if (session_status() === PHP_SESSION_NONE) {
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Home/index">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Medewerkers/index">Medewerkers</a></li>
                 <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/Voorstellingen/index">Voorstellingen</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/tickets/index">Tickets</a></li>
                 <?php if (isset($_SESSION['gebruiker_id']) && $_SESSION['rol'] == 'Administrator') { ?>
-                    <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/tickets/index">Tickets</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= URLROOT ?>/accountcontroller/account_overzicht">Account Overzicht</a></li>
             </ul>
                 <?php } ?>
