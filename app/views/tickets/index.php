@@ -5,16 +5,16 @@ require_once APPROOT . '/views/includes/header.php';
 ?>
 
 <body style="background-color: #2a3d45; color: white;">
-    <div class="container" style="margin-top: 15rem;">
-        <div class="row" style="display:<?= $data['message']; ?>">
-            <div class="col-1"></div>
-            <div class="col-10 text-begin text-primary">
+    <div class="row py-5" style="display:<?= $data['message']; ?>">
+            <div class="col-4"></div>
+            <div class="col-4 text-center text-primary">
                 <div class="alert alert-success" role="alert">
                     Record is verwijderd
                 </div>
             </div>
-            <div class="col-1"></div>
+            <div class="col-4"></div>
         </div>
+    <div class="container" style="margin-top: 15rem;">
         <div class="row">
             <!-- Left spacer - 2 columns -->
             <div class="col-md-2"></div>

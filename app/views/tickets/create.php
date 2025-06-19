@@ -2,39 +2,36 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <body style="background-color: #2a3d45; color: white;">
-
-    <!-- Notification Bubble -->
+    <div class="container" style="margin-top: 5rem;">
+          <!-- Notification Bubble -->
     <?php if (!empty($data['success_message'])): ?>
         <div class="row mb-3">
-            <div class="col-3"></div>
-            <div class="col-6 ">
+            <div class="col-4"></div>
+            <div class="col-4">
                 <div class="alert text-center alert-success" role="alert">
                     <?= htmlspecialchars($data['success_message']) ?>
                 </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-4"></div>
         </div>
     <?php elseif (!empty($data['error'])): ?>
         <div class="row mb-3">
-            <div class="col-3"></div>
-            <div class="col-6 ">
+            <div class="col-4"></div>
+            <div class="col-4 ">
                 <div class="alert text-center alert-danger" role="alert">
                     <?= htmlspecialchars($data['error']) ?>
                 </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-4"></div>
         </div>
     <?php endif; ?>
-
-    <div class="container" style="margin-top: 5rem;">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6 text-white text-center">
+            <div class="col-4"></div>
+            <div class="col-4 text-white text-center">
                 <h3><?= htmlspecialchars($data['title'] ?? 'Ticket Aanmaken') ?></h3>
             </div>
-            <div class="col-3"></div>
+            <div class="col-4"></div>
         </div>
-
         <!-- Form -->
         <div class="row mt-4">
             <div class="col-3"></div>
