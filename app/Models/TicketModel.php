@@ -117,42 +117,52 @@ waarmee we een reserveringsformulier kunnen bouwen */
      */
     public function findById($id)
     {
-        $sql = 'SELECT * FROM Ticket WHERE Id = :Id';
-        $this->db->query($sql);
-        $this->db->bind(':Id', $id, PDO::PARAM_INT);
-        return $this->db->single();
+        try {
+            $sql = 'SELECT * FROM Ticket WHERE Id = :Id';
+            $this->db->query($sql);
+            $this->db->bind(':Id', $id, PDO::PARAM_INT);
+            return $this->db->single();
+        } catch (PDOException $e) {
+            error_log('findById error: ' . $e->getMessage());
+            return false;
+        }
     }
-  /**
+    /**
      * Update ticket details.
      * @param array $data
      * @return bool|string
      */
-    public function updateTickets($data)
+
+    // Updated updateTicket method
+    public function updateTicket($data)
     {
         try {
-            $sql = "UPDATE Ticket SET
-                VoorstellingId = :voorstellingId,
-                PrijsId = :prijsId,
-                Nummer = :nummer,
-                Barcode = :barcode,
-                Status = :status,
-                Datum = :datum,
-                Tijd = :tijd
-                WHERE Id = :id";
+            $sql = "UPDATE Ticket SET 
+                VoorstellingId = :VoorstellingId,
+                Barcode = :Barcode,
+                PrijsId = :PrijsId,
+                Nummer = :Nummer,
+                Datum = :Datum,
+                Tijd = :Tijd,
+                Status = :Status
+                WHERE Id = :Id";
+
             $this->db->query($sql);
-            $this->db->bind(':voorstellingId', $data['VoorstellingId']);
-            $this->db->bind(':prijsId', $data['PrijsId']);
-            $this->db->bind(':nummer', $data['Nummer']);
-            $this->db->bind(':barcode', $data['Barcode']);
-            $this->db->bind(':status', $data['Status']);
-            $this->db->bind(':datum', $data['Datum']);
-            $this->db->bind(':tijd', $data['Tijd']);
-            $this->db->bind(':id', $data['Id'], PDO::PARAM_INT);
+
+            // Bind values
+            $this->db->bind(':VoorstellingId', $data['VoorstellingId'], PDO::PARAM_INT);
+            $this->db->bind(':Barcode', $data['Barcode'], PDO::PARAM_STR);
+            $this->db->bind(':PrijsId', $data['PrijsId'], PDO::PARAM_INT);
+            $this->db->bind(':Nummer', $data['Nummer'], PDO::PARAM_INT);
+            $this->db->bind(':Datum', $data['Datum']);
+            $this->db->bind(':Tijd', $data['Tijd']);
+            $this->db->bind(':Status', $data['Status']);
+            $this->db->bind(':Id', $data['Id'], PDO::PARAM_INT);
 
             return $this->db->execute();
         } catch (PDOException $e) {
-            error_log('Update error: ' . $e->getMessage());
-            return 'Error: ' . $e->getMessage();
+            error_log("Update failed: " . $e->getMessage());
+            return false;
         }
     }
 }
