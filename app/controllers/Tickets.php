@@ -8,7 +8,7 @@ class Tickets extends BaseController
         $this->ticketModel = $this->model('TicketModel');
         $this->voorstellingen = $this->model('VoorstellingenModel');
     }
-    public function index($message = 'none', $firstname = NULL, $infix = NULL, $lastname = NULL)
+    public function index($message = 'none')
     {
         $data = [
             'title' => 'Overzicht Tickets',
@@ -149,33 +149,34 @@ class Tickets extends BaseController
      */
     public function delete($Id)
     {
-         $this->ticketModel->delete($Id);
-          
-          header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+        $this->ticketModel->delete($Id);
 
-          $this->index('flex');
+        header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+
+        $this->index('flex');
     }
 
-    public function update($Id = NULL)
-    {
+    public function update($error = 'none', $success_message = 'none', $Id = NULL) {
+
+        $ticket = $this->voorstellingen->GetAllVoorstellingen();
+        $update_ticket = $this->ticketModel->updateTicket($Id);
+
         $data = [
-            'title' => 'Wijzig de tickets',
-            'message' => 'none'
+            'title' => 'Ticket Wijzigen',
+            'error' => $error,
+            'message' => $success_message,
+            'ticket' => $ticket,
+            'update_ticket' => $update_ticket,
         ];
 
-        if ($_SERVER['REQUEST_METHOD'] == "POST") {
-            $Id = $_POST['Id'];
-
-            $result = $this->ticketModel->updateTickets($_POST);
-
-            $data['message'] = 'flex';
-
-            header("Refresh:3 ; url=" . URLROOT . "/ticktes/index");
+        // Validate if the ticket exists
+        if (!$ticket) {
+            $data['error'] = 'Ticket niet gevonden';
+            $this->view('tickets/update', $data);
+            return;
         }
 
-        $data['tickets'] = $this->ticketModel->getAllTickets($Id);
-
-
         $this->view('tickets/update', $data);
+
     }
 }

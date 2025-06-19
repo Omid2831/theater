@@ -136,6 +136,9 @@ waarmee we een reserveringsformulier kunnen bouwen */
     // Updated updateTicket method
     public function updateTicket($data)
     {
+        if (!is_array($data)) {
+            return false;
+        }
         try {
             $sql = "UPDATE Ticket SET 
                 VoorstellingId = :VoorstellingId,
@@ -154,9 +157,9 @@ waarmee we een reserveringsformulier kunnen bouwen */
             $this->db->bind(':Barcode', $data['Barcode'], PDO::PARAM_STR);
             $this->db->bind(':PrijsId', $data['PrijsId'], PDO::PARAM_INT);
             $this->db->bind(':Nummer', $data['Nummer'], PDO::PARAM_INT);
-            $this->db->bind(':Datum', $data['Datum']);
-            $this->db->bind(':Tijd', $data['Tijd']);
-            $this->db->bind(':Status', $data['Status']);
+            $this->db->bind(':Datum', $data['Datum'], PDO::PARAM_STR);
+            $this->db->bind(':Tijd', $data['Tijd'], PDO::PARAM_STR);
+            $this->db->bind(':Status', $data['Status'], PDO::PARAM_STR);
             $this->db->bind(':Id', $data['Id'], PDO::PARAM_INT);
 
             return $this->db->execute();
