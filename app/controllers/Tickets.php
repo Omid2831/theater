@@ -156,27 +156,56 @@ class Tickets extends BaseController
         $this->index('flex');
     }
 
-    public function update($error = 'none', $success_message = 'none', $Id = NULL) {
+    /**
+     * Updates a ticket. This functionality is triggered when the update button is pressed.
+     * @param string $error
+     * @param string $success_message
+     * @param int|null $Id
+     * @return void
+     */
 
-        $ticket = $this->voorstellingen->GetAllVoorstellingen();
-        $update_ticket = $this->ticketModel->updateTicket($Id);
+    public function update($Id = NULL, $error = 'none', $success_message = 'none')
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Collect POST data
+            $data = [
+                'Id' => $_POST['Id'] ?? '',
+                'VoorstellingId' => $_POST['VoorstellingId'] ?? '',
+                'Barcode' => $_POST['barcode'] ?? '',
+                'PrijsId' => 1,
+                'Nummer' => $_POST['Nummer'] ?? '',
+                'Datum' => $_POST['datum'] ?? '',
+                'Tijd' => $_POST['tijd'] ?? '',
+                'Status' => $_POST['Status'] ?? '',
+            ];
 
+            // Optionally: validate data here
+            $result = $this->ticketModel->updateTicket($data);
+            if ($result) {
+                $success_message = 'Ticket succesvol bijgewerkt!';
+                header('Location: ' . URLROOT . '/tickets/index');
+                exit;
+            } else {
+                $error = 'Bijwerken mislukt.';
+            }
+        }
+
+        // GET: Show form
+        if ($Id === NULL && isset($_POST['Id'])) {
+            $Id = $_POST['Id'];
+        }
+        $ticket = $this->ticketModel->findById($Id);
+        $vo = $this->voorstellingen->GetAllVoorstellingen();
         $data = [
             'title' => 'Ticket Wijzigen',
             'error' => $error,
             'message' => $success_message,
             'ticket' => $ticket,
-            'update_ticket' => $update_ticket,
+            'vo' => $vo,
         ];
-
-        // Validate if the ticket exists
         if (!$ticket) {
             $data['error'] = 'Ticket niet gevonden';
-            $this->view('tickets/update', $data);
-            return;
         }
-
         $this->view('tickets/update', $data);
-
     }
 }

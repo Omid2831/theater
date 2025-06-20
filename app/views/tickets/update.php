@@ -5,23 +5,23 @@
 
     <!-- Notification Bubble -->
     <div class="row" style="display:<?= $data['message']; ?>">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-success" role="alert">
-                    <?= htmlspecialchars($data['message'] ?? ''); ?>
-                </div>
+        <div class="col-4"></div>
+        <div class="col-4 text-center text-primary">
+            <div class="alert alert-success" role="alert">
+                <?= htmlspecialchars($data['message'] ?? ''); ?>
             </div>
-            <div class="col-4"></div>
         </div>
-        <div class="row" style="display:<?= $data['error']; ?>">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-warning" role="alert">
-                    <?= htmlspecialchars($data['error'] ?? ''); ?>
-                </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row" style="display:<?= $data['error']; ?>">
+        <div class="col-4"></div>
+        <div class="col-4 text-center text-primary">
+            <div class="alert alert-warning" role="alert">
+                <?= htmlspecialchars($data['error'] ?? ''); ?>
             </div>
-            <div class="col-4"></div>
         </div>
+        <div class="col-4"></div>
+    </div>
 
     <div class="container" style="margin-top: 5rem;">
         <div class="row">
@@ -37,7 +37,7 @@
             <div class="col-3"></div>
             <div class="col-6">
                 <form action="<?= URLROOT ?>/tickets/update" method="post">
-                    <input type="hidden" name="ticket_id" value="<?= htmlspecialchars($data['ticket']->Id ?? '') ?>">
+                    <input type="hidden" name="Id" value="<?= htmlspecialchars($data['ticket']->Id ?? '') ?>">
                     <div class="mb-3">
                         <label for="VoorstellingId" class="form-label">Kies een Voorstelling</label>
                         <select name="VoorstellingId" id="VoorstellingId" class="form-select" required>
@@ -61,8 +61,7 @@
                                 id="barcode"
                                 value="<?= htmlspecialchars($data['ticket']->Barcode ?? 'Niet beschikbaar') ?>"
                                 placeholder="bijvb. BTA004"
-                                maxlength="6"
-                                >
+                                maxlength="6">
                         </div>
                     </div>
 
@@ -128,4 +127,4 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
 
-<?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
+    <?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
