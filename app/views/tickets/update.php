@@ -2,26 +2,25 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 <body style="background-color: #2a3d45; color: white;">
-
     <!-- Notification Bubble -->
-    <div class="row" style="display:<?= $data['message']; ?>">
-        <div class="col-4"></div>
-        <div class="col-4 text-center text-primary">
-            <div class="alert alert-success" role="alert">
-                <?= htmlspecialchars($data['message'] ?? ''); ?>
+    <div style="display:<?= isset($data['message']) ? $data['message'] : 'none'; ?>">
+            <div class="col-4"></div>
+            <div class="col-4 text-center text-primary">
+                <div class="alert alert-success" role="alert">
+                    Record is gewijzigd
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
-    </div>
-    <div class="row" style="display:<?= $data['error']; ?>">
-        <div class="col-4"></div>
-        <div class="col-4 text-center text-primary">
-            <div class="alert alert-warning" role="alert">
-                <?= htmlspecialchars($data['error'] ?? ''); ?>
+        <div class="row py-5" style="display:<?= $data['error']; ?>">
+            <div class="col-4"></div>
+            <div class="col-4 text-center text-primary">
+                <div class="alert alert-danger" role="alert">
+                    Bijwerken mislukt
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
-    </div>
 
     <div class="container" style="margin-top: 5rem;">
         <div class="row">
@@ -55,10 +54,10 @@
                         <label for="barcode" class="form-label">Barcode</label>
                         <div class="input-group">
                             <input
-                                name="barcode"
+                                name="Barcode"
                                 type="text"
                                 class="form-control"
-                                id="barcode"
+                                id="Barcode"
                                 value="<?= htmlspecialchars($data['ticket']->Barcode ?? 'Niet beschikbaar') ?>"
                                 placeholder="bijvb. BTA004"
                                 maxlength="6">

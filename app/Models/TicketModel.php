@@ -133,7 +133,6 @@ waarmee we een reserveringsformulier kunnen bouwen */
      * @return bool|string
      */
 
-    // Updated updateTicket method
     public function updateTicket($data)
     {
         try {

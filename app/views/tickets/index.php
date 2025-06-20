@@ -5,7 +5,7 @@ require_once APPROOT . '/views/includes/header.php';
 ?>
 
 <body style="background-color: #2a3d45; color: white;">
-    <div class="row py-5" style="display:<?= $data['message']; ?>">
+    <div class="row py-5 mt-4" style="display:<?= $data['message']; ?>">
             <div class="col-4"></div>
             <div class="col-4 text-center text-primary">
                 <div class="alert alert-success" role="alert">
