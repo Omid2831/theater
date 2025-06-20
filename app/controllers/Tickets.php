@@ -106,13 +106,24 @@ class Tickets extends BaseController
                     return;
                 }
 
+                
+
                 // Parse and validate time
                 $parsedTime = strtotime($data['Tijd']);
                 $hour = (int)date('H:i A', $parsedTime); // Extract the hour in 24-hour format (0–23)
 
+                //  validate time
+                $eventDateTime = new DateTime($data['Datum'] . ' ' . $data['Tijd']);
+                $now = new DateTime();
+                $diffInDays = $now->diff($eventDateTime)->days;
                 // Check if time is between 11:00 PM and 10:00 AM
                 if ($hour < 10 || $hour >= 23) {
                     $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
+                    header('Refresh:3; URL=' . URLROOT . '/tickets/create');
+                    $this->view('tickets/create', $data);
+                    return;
+                } elseif ($diffInDays > 30) {
+                    $data['error'] = 'Ongeldig: ticket is te ver van de tijd.';
                     header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                     $this->view('tickets/create', $data);
                     return;
@@ -136,22 +147,21 @@ class Tickets extends BaseController
     }
     /**
      * Summary of delete
-    * Deletes a ticket. This functionality is triggered when the delete button is pressed.
+     * Deletes a ticket. This functionality is triggered when the delete button is pressed.
      * @return void
      */
     public function delete($Id)
     {
-         $result = $this->ticketModel->delete($Id);
-          
-          header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+        $result = $this->ticketModel->delete($Id);
 
-          $data =[ 
+        header('Refresh:3 ; url=' . URLROOT . '/tickets/index');
+
+        $data = [
             'title' => 'Verwijderen',
-             'tickets' => $result,
-          ];
+            'tickets' => $result,
+        ];
 
-          $this->index('flex');
-          $this->view('tickets/index', $data);
-        
+        $this->index('flex');
+        $this->view('tickets/index', $data);
     }
 }
