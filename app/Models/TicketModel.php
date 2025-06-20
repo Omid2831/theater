@@ -136,9 +136,6 @@ waarmee we een reserveringsformulier kunnen bouwen */
     // Updated updateTicket method
     public function updateTicket($data)
     {
-        if (!is_array($data)) {
-            return false;
-        }
         try {
             $sql = "UPDATE Ticket SET 
                 VoorstellingId = :VoorstellingId,
