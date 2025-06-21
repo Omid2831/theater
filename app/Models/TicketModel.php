@@ -21,7 +21,7 @@ class TicketModel
             t.Status
             FROM Ticket t
             JOIN Voorstelling v ON t.VoorstellingId = v.Id
-            ORDER BY t.Datum DESC, t.Tijd DESC";
+            ORDER BY t.Datum ASC, t.Tijd ASC, t.Nummer DESC";
             $this->db->query($sql);
             return $this->db->resultSet();
         } catch (PDOException $e) {
