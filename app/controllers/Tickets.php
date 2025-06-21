@@ -167,57 +167,68 @@ class Tickets extends BaseController
     public function update($Id = NULL, $error = 'none', $message = 'none')
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+           
+            // Combine all data into one array
             $data = [
-                'Id' => $_POST['Id'] ?? '',
-                'VoorstellingId' => $_POST['VoorstellingId'] ?? '',
-                'Barcode' => $_POST['Barcode'] ?? '',
-                'PrijsId' => 1,
-                'Nummer' => $_POST['Nummer'] ?? '',
-                'Datum' => $_POST['Datum'] ?? '',
-                'tijd' => $_POST['Tijd'] ?? '',
-                'Status' => $_POST['Status'] ?? '',
+                'title' => 'Ticket Wijzigen',
+                'vo' => $this->voorstellingen->getAllVoorstellingen(),
+                'error' => 'none',
+                'message' => 'none',
+                'errors' => [],
+                'Id' => trim($_POST['Id'] ?? ''),
+                'VoorstellingId' => trim($_POST['VoorstellingId'] ?? ''),
+                'Barcode' => trim($_POST['Barcode'] ?? ''),
+                'Datum' => trim($_POST['datum'] ?? ''),
+                'Tijd' => trim($_POST['tijd'] ?? ''),
+                'Nummer' => trim($_POST['Nummer'] ?? ''),
+                'Status' => trim($_POST['Status'] ?? ''),
+                'PrijsId' => 1, 
+                'ticket' => null
             ];
 
-            $result = $this->ticketModel->updateTicket($data);
-            if ($result) {
-                $data['message'] = 'flex';
-                $data['error'] = 'none';
-                header('Refresh:3; url=' . URLROOT . '/tickets/index');
-                $this->view('tickets/update', $data);
-                exit;
-            } else {
-                $data['error'] = 'flex';
-                $data['message'] = 'none';
-                header('Refresh:3; url=' . URLROOT . '/tickets/update/' . $data['Id']);
-                $this->view('tickets/update', $data);
-                exit;
+            // Validate inputs
+            if (empty($data['VoorstellingId'])) {
+                $data['error'] = 'block';
             }
-        }
 
-        // GET: show form
-        if ($Id === NULL) {
-            die('Geen geldig ID opgegeven.');
-        }
+            if (empty($data['Datum'])) {
+                $data['error'] = 'block';
+            }
 
-        $ticket = $this->ticketModel->findById($Id);
-        $vo = $this->voorstellingen->GetAllVoorstellingen();
-        if (!$ticket) {
-            $data = [
-                'error' => 'flex',
-                'message' => 'none'
-            ];
+            if (empty($data['Tijd'])) {
+                $data['error'] = 'block';
+            }
+
+            if (empty($data['Nummer']) || $data['Nummer'] < 1 || $data['Nummer'] > 100) {
+                $data['error'] = 'block';
+            }
+
+            // If no errors, try to update
+            if ($data['error'] === 'none') {
+                if ($this->ticketModel->updateTicket($data)) {
+                    $data['message'] = 'block';
+             
+                } else {
+                    $data['error'] = 'block';
+
+                }
+            }
+
+            // Load view with data
             $this->view('tickets/update', $data);
-            exit;
+        } else {
+            // If not POST, load the form with existing data
+            $ticket = $this->ticketModel->findById($Id);
+
+            $data = [
+                'title' => 'Ticket Wijzigen',
+                'ticket' => $ticket,
+                'vo' => $this->voorstellingen->GetAllVoorstellingen(),
+                'error' => $error,
+                'message' => $message
+            ];
+
+            $this->view('tickets/update', $data);
         }
-
-        $data = [
-            'title' => 'Ticket Wijzigen',
-            'error' => $error ?? 'none',
-            'message' => $message ?? 'none',
-            'ticket' => $ticket,
-            'vo' => $vo,
-        ];
-
-        $this->view('tickets/update', $data);
     }
 }
