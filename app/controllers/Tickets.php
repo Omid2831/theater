@@ -63,8 +63,7 @@ class Tickets extends BaseController
      * @return void
      */
 
-
-    public function create()
+   public function create($sms = 'none', $error = 'none')
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Collect POST data
@@ -78,8 +77,8 @@ class Tickets extends BaseController
                 'PrijsId'        => 1, // Or get from form if needed
                 'title'          => 'Ticket Aanmaken',
                 'vo'             => $this->voorstellingen->GetAllVoorstellingen(),
-                'success_message' => '',
-                'error'          => ''
+                'success_message' => $sms,
+                'error'          => $error,
             ];
 
 
@@ -90,7 +89,7 @@ class Tickets extends BaseController
                 $data['error'] = 'Geen beschikbaarheid';
                 header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                 $this->view('tickets/create', $data);
-                return;
+               
             }
 
             if ($this->voorstellingen->GetAllVoorstellingen() && $this->ticketModel->create($data)) {
@@ -118,19 +117,19 @@ class Tickets extends BaseController
                     $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
                     header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                     $this->view('tickets/create', $data);
-                    return;
+                    
                 } elseif ($diffInDays > 30) {
                     $data['error'] = 'Ongeldig: ticket is te ver van de tijd.';
                     header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                     $this->view('tickets/create', $data);
-                    return;
+                   
                 }
 
                 // If all checks pass, show success message
                 $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt!';
                 header('Refresh:3; URL=' . URLROOT . '/tickets/index');
                 $this->view('tickets/create', $data);
-                exit;
+                
             }
         }
 
@@ -167,7 +166,7 @@ class Tickets extends BaseController
     public function update($Id = NULL, $error = 'none', $message = 'none')
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-           
+
             // Combine all data into one array
             $data = [
                 'title' => 'Ticket Wijzigen',
@@ -178,29 +177,33 @@ class Tickets extends BaseController
                 'Id' => trim($_POST['Id'] ?? ''),
                 'VoorstellingId' => trim($_POST['VoorstellingId'] ?? ''),
                 'Barcode' => trim($_POST['Barcode'] ?? ''),
-                'Datum' => trim($_POST['datum'] ?? ''),
-                'Tijd' => trim($_POST['tijd'] ?? ''),
+                'Datum' => trim($_POST['Datum'] ?? ''),
+                'Tijd' => trim($_POST['Tijd'] ?? ''),
                 'Nummer' => trim($_POST['Nummer'] ?? ''),
                 'Status' => trim($_POST['Status'] ?? ''),
-                'PrijsId' => 1, 
-                'ticket' => null
+                'PrijsId' => 1,
+                
             ];
 
             // Validate inputs
             if (empty($data['VoorstellingId'])) {
                 $data['error'] = 'block';
+                header('Refresh:2; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
             }
 
             if (empty($data['Datum'])) {
                 $data['error'] = 'block';
+                header('Refresh:2; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
             }
 
             if (empty($data['Tijd'])) {
                 $data['error'] = 'block';
+                header('Refresh:2; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
             }
 
             if (empty($data['Nummer']) || $data['Nummer'] < 1 || $data['Nummer'] > 100) {
                 $data['error'] = 'block';
+                header('Refresh:2; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
             }
 
             // If no errors, try to update
