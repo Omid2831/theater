@@ -207,17 +207,17 @@ class Tickets extends BaseController
             if ($data['error'] === 'none') {
                 if ($this->ticketModel->updateTicket($data)) {
                     $data['message'] = 'block';
-             
+                    header('Refresh:2; URL=' . URLROOT . '/tickets/index');
                 } else {
                     $data['error'] = 'block';
-
+                    header('Refresh:2; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
                 }
             }
 
             // Load view with data
             $this->view('tickets/update', $data);
         } else {
-            // If not POST, load the form with existing data
+            // If not POST, load the form 
             $ticket = $this->ticketModel->findById($Id);
 
             $data = [
