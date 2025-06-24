@@ -56,7 +56,7 @@ if (isset($data['success_message'])): ?>
                             type="text"
                             class="form-control"
                             id="barcode"
-                            value="<?= htmlspecialchars($data['Barcode'] ?? '') ?>"
+                            value="<?= htmlspecialchars($_POST['Barcode'] ?? '') ?>"
                             placeholder="bijvb. BTA004"
                             maxlength="6"
                             readonly>
@@ -71,7 +71,7 @@ if (isset($data['success_message'])): ?>
                         type="date"
                         class="form-control"
                         id="datum"
-                        value="<?= htmlspecialchars($data['Datum'] ?? '') ?>"
+                        value="<?= htmlspecialchars($_POST['Datum'] ?? '') ?>"
                         required>
                 </div>
 
@@ -82,7 +82,7 @@ if (isset($data['success_message'])): ?>
                         type="text"
                         class="form-control"
                         id="tijd"
-                        value="<?= htmlspecialchars($data['Tijd'] ?? '') ?>"
+                        value="<?= htmlspecialchars($_POST['Tijd'] ?? '') ?>"
                         required>
                 </div>
 
@@ -93,7 +93,7 @@ if (isset($data['success_message'])): ?>
                         type="number"
                         class="form-control"
                         id="Nummer"
-                        value="<?= htmlspecialchars($data['Nummer'] ?? '') ?>"
+                        value="<?= htmlspecialchars($_POST['Nummer'] ?? '') ?>"
                         min="1" max="100"
                         minlength="1" maxlength="3"
                         required>
@@ -106,7 +106,7 @@ if (isset($data['success_message'])): ?>
                         type="text"
                         class="form-control"
                         id="Status"
-                        value="<?= htmlspecialchars($data['Status'] ?? '----') ?>"
+                        value="<?= htmlspecialchars($_POST['Status'] ?? '----') ?>"
                         required
                         readonly>
                 </div>
