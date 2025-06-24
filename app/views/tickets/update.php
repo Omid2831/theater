@@ -8,7 +8,7 @@
              <div class="col-4"></div>
             <div class="col-4 text-center text-primary">
                 <div class="alert alert-success" role="alert">
-                    Record is gewijzigd
+                    <?= $data['message']; ?>
                 </div>
             </div>
             <div class="col-4"></div>
@@ -19,7 +19,7 @@
                 <div class="col-4"></div>
             <div class="col-4 text-center text-primary">
                 <div class="alert alert-danger" role="alert">
-                    Bijwerken mislukt
+                    <?=  $data['error'] ?? ''; ?>
                 </div>
             </div>
             <div class="col-4"></div>
