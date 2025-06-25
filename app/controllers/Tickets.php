@@ -89,6 +89,7 @@ class Tickets extends BaseController
                 $data['error'] = 'Geen beschikbaarheid';
                 header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                 $this->view('tickets/create', $data);
+                return;
             }
 
             if ($this->voorstellingen->GetAllVoorstellingen() && $this->ticketModel->create($data)) {
@@ -116,16 +117,19 @@ class Tickets extends BaseController
                     $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
                     header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                     $this->view('tickets/create', $data);
+                    return;
                 } elseif ($diffInDays > 30) {
                     $data['error'] = 'Ongeldig: ticket is te ver van de tijd.';
                     header('Refresh:3; URL=' . URLROOT . '/tickets/create');
                     $this->view('tickets/create', $data);
+                    return;
                 }
 
                 // If all checks pass, show success message
                 $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt!';
                 header('Refresh:3; URL=' . URLROOT . '/tickets/index');
                 $this->view('tickets/create', $data);
+                return;
             }
         }
 
@@ -134,6 +138,8 @@ class Tickets extends BaseController
         $data = [
             'title' => 'Ticket Aanmaken',
             'vo' => $result,
+            'success_message' => $sms,
+            'error' => $error,
         ];
         $this->view('tickets/create', $data);
     }
@@ -159,54 +165,95 @@ class Tickets extends BaseController
      * @return void
      */
 
-    public function update($Id = NULL, $error = 'none', $message = 'none')
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   public function update($Id = null, $error = 'none', $message = 'none')
+{
+    $ticket = $this->ticketModel->findById($Id);
 
-            // Combine all data into one array
-            $data = [
-                'title' => 'Ticket Wijzigen',
-                'vo' => $this->voorstellingen->getAllVoorstellingen(),
-                'error' => 'none',
-                'message' => 'none',
-                'errors' => [],
-                'Id' => trim($_POST['Id'] ?? ''),
-                'VoorstellingId' => trim($_POST['VoorstellingId'] ?? ''),
-                'Barcode' => trim($_POST['Barcode'] ?? ''),
-                'Datum' => trim($_POST['datum'] ?? ''),
-                'Tijd' => trim($_POST['tijd'] ?? ''),
-                'Nummer' => trim($_POST['Nummer'] ?? ''),
-                'Status' => trim($_POST['Status'] ?? ''),
-                'PrijsId' => 1,
-            ];
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        $data = [
+            'title' => 'Ticket Wijzigen',
+            'ticket' => $ticket,
+            'vo' => $this->voorstellingen->getAllVoorstellingen(),
+            'error' => $error,
+            'message' => $message
+        ];
+        $this->view('tickets/update', $data);
+        return;
+    }
 
-        
+    // POST Request Handling
+    $data = [
+        'title' => 'Ticket Wijzigen',
+        'vo' => $this->voorstellingen->getAllVoorstellingen(),
+        'error' => '',
+        'message' => '',
+        'Id' => trim($_POST['Id'] ?? ''),
+        'VoorstellingId' => trim($_POST['VoorstellingId'] ?? ''),
+        'Barcode' => trim($_POST['Barcode'] ?? ''),
+        'Datum' => trim($_POST['datum'] ?? ''),
+        'Tijd' => trim($_POST['tijd'] ?? ''),
+        'Nummer' => trim($_POST['Nummer'] ?? ''),
+        'Status' => trim($_POST['Status'] ?? ''),
+        'PrijsId' => 1,
+    ];
 
-            // Try to update the ticket
-            if ($this->ticketModel->updateTicket($data)) {
-                $data['message'] = 'Uw ticket is succesvol bijgewerkt!';
-                header('Refresh:2; URL=' . URLROOT . '/tickets/index');
-                $this->view('tickets/update', $data);
-        
-            } else {
-                $data['error'] = 'Er is iets misgegaan bij het bijwerken van het ticket.';
-                header('Refresh:2; URL=' . URLROOT . '/tickets/create');
-                $this->view('tickets/update', $data);
-        
-            }
-        } else {
-            // If not POST, load the form
-            $ticket = $this->ticketModel->findById($Id);
+    // TIME FORMAT VALIDATION
+    if (empty($data['Tijd']) || !preg_match('/^\d{1,2}:\d{2} ?(AM|PM)?$/i', $data['Tijd'])) {
+        $data['error'] = 'Ongeldige tijd ingevoerd. Gebruik het formaat HH:MM AM/PM.';
+        return $this->showError($data);
+    }
 
-            $data = [
-                'title' => 'Ticket Wijzigen',
-                'ticket' => $ticket,
-                'vo' => $this->voorstellingen->GetAllVoorstellingen(),
-                'error' => $error,
-                'message' => $message
-            ];
+    $parsedTime = strtotime($data['Tijd']);
+    if ($parsedTime === false) {
+        $data['error'] = 'Kon tijd niet verwerken.';
+        return $this->showError($data);
+    }
 
-            $this->view('tickets/update', $data);
+    $hour = (int)date('H', $parsedTime);
+    if ($hour < 10 || $hour >= 23) {
+        $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
+        return $this->showError($data);
+    }
+
+    // SEAT TAKEN VALIDATION
+    if ($this->ticketModel->isSeatTaken($data['VoorstellingId'], $data['Nummer'])) {
+        $data['error'] = 'Stoel is al bezet.';
+        return $this->showError($data);
+    }
+
+    // CHECK FOR CHANGES
+    $originalTicket = $this->ticketModel->findById($data['Id']);
+    $fieldsToCheck = ['VoorstellingId', 'Barcode', 'Datum', 'Tijd', 'Nummer'];
+    $changed = false;
+    foreach ($fieldsToCheck as $field) {
+        if ($originalTicket->$field != $data[$field]) {
+            $changed = true;
+            break;
         }
     }
+
+    if (!$changed) {
+        $data['error'] = 'Geen wijzigingen aangebracht.';
+        return $this->showError($data);
+    }
+
+    // PERFORM UPDATE
+    if ($this->ticketModel->updateTicket($data)) {
+        $data['message'] = 'Ticket succesvol bijgewerkt.';
+        header('Refresh:3; URL=' . URLROOT . '/tickets/index');
+    } else {
+        $data['error'] = 'Er is een fout opgetreden bij het bijwerken van het ticket.';
+    }
+
+    $this->view('tickets/update', $data);
+}
+
+// Helper method
+private function showError($data)
+{
+    header('Refresh:3; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
+    $this->view('tickets/update', $data);
+    return;
+}
+
 }
