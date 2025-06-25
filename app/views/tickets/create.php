@@ -3,32 +3,29 @@
 
 
 <div class="container" style="margin-top: 5rem;">
-    <!-- Notification System -->
-<?php
-// Success Notification
-if (isset($data['success_message'])): ?>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4 text-center text-primary">
-            <div class="alert alert-success" role="alert">
-                <?= $data['success_message'] ?>
+    <!-- Notification Bubble -->
+    <div style="display:<?= isset($data['success_message']) ? $data['success_message'] : 'none'; ?>">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center text-primary">
+                <div class="alert alert-success" role="alert">
+                    <?= $data['success_message']; ?>
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
     </div>
-<!-- Error Notifications -->
-<?php elseif (isset($data['error'])): ?>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4 text-center text-danger">
-            <div class="alert alert-danger" role="alert">
-                <?= $data['error'] ?>
+    <div class="row py-5" style="display:<?= $data['error']; ?>">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4 text-center text-primary">
+                <div class="alert alert-danger" role="alert">
+                    <?= $data['error'] ?? ''; ?>
+                </div>
             </div>
+            <div class="col-4"></div>
         </div>
-        <div class="col-4"></div>
     </div>
-<?php endif; ?>
-
     <!-- Form -->
     <div class="row mt-4">
         <div class="col-3"></div>
