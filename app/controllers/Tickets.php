@@ -185,8 +185,8 @@ class Tickets extends BaseController
     $data = [
         'title' => 'Ticket Wijzigen',
         'vo' => $this->voorstellingen->getAllVoorstellingen(),
-        'error' => '',
-        'message' => '',
+        'error' => $error,
+        'message' => $message,
         'Id' => trim($_POST['Id'] ?? ''),
         'VoorstellingId' => trim($_POST['VoorstellingId'] ?? ''),
         'Barcode' => trim($_POST['Barcode'] ?? ''),
@@ -248,7 +248,11 @@ class Tickets extends BaseController
     $this->view('tickets/update', $data);
 }
 
-// Helper method
+/**
+ * Helper function to show error messages and redirect
+ * @param array $data
+ * @return void
+ */
 private function showError($data)
 {
     header('Refresh:3; URL=' . URLROOT . '/tickets/update/' . $data['Id']);
