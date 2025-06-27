@@ -4,7 +4,9 @@ require_once APPROOT . '/views/includes/b-header.php';
 require_once APPROOT . '/views/includes/header.php';
 ?>
 
-    <div class="row py-5 mt-4" style="display:<?= $data['message']; ?>">
+    <div class="container" style="margin-top: 15rem;">
+        <!-- Notification Bubble -->
+        <div class="row py-5 mt-4" style="display:<?= $data['message']; ?>">
             <div class="col-4"></div>
             <div class="col-4 text-center text-primary">
                 <div class="alert alert-success" role="alert">
@@ -13,7 +15,6 @@ require_once APPROOT . '/views/includes/header.php';
             </div>
             <div class="col-4"></div>
         </div>
-    <div class="container" style="margin-top: 15rem;">
         <div class="row">
             <!-- Left spacer - 2 columns -->
             <div class="col-md-2"></div>
