@@ -1,32 +1,21 @@
 <?php require APPROOT . '/views/includes/b-header.php'; ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+<div class="row col-12 justify-content-center d-flex">
+    <!-- TOAST -->
+    <div
+        id="toastBox"
+        class="col-8 toast align-items-center text-bg-danger border-0 "
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="4000">
+        <div id="toastBody" class="toast-body text-center"></div>
+    </div>
+</div>
+
+
 <div class="container" style="margin-top: 5rem;">
-
-    <!-- Notification Bubble -->
-<div style="display:<?= isset($data['message']) ? $data['message'] : 'none'; ?>">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-success" role="alert">
-                    <?= $data['message']; ?>
-                </div>
-            </div>
-            <div class="col-4"></div>
-        </div>
-    </div>
-    <div class="row py-5" style="display:<?= isset($data['error']) ? $data['error'] : 'none'; ?>">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-danger" role="alert">
-                    <?= $data['error']; ?>
-                </div>
-            </div>
-            <div class="col-4"></div>
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6 text-white text-center">
@@ -35,99 +24,68 @@
         <div class="col-3"></div>
     </div>
 
-    <!-- Form -->
     <div class="row mt-4">
         <div class="col-3"></div>
         <div class="col-6">
-            <form action="<?= URLROOT ?>/tickets/update" method="post">
-                <input type="hidden" name="Id" value="<?= htmlspecialchars($data['ticket']->Id ?? '') ?>">
+            <form action="<?= URLROOT ?>/tickets/update" method="post" id="updateForm">
+                <input type="hidden" name="Id" value="<?= $data['ticket']->Id; ?>">
+
                 <div class="mb-3">
                     <label for="VoorstellingId" class="form-label">Kies een Voorstelling</label>
                     <select name="VoorstellingId" id="VoorstellingId" class="form-select" required>
                         <option value="">-- Selecteer een voorstelling --</option>
-                        <?php foreach ($data['vo'] as $Voorstellingen): ?>
-                            <option value="<?= htmlspecialchars($Voorstellingen->Id); ?>"
-                                <?= (isset($data['ticket']->VoorstellingId) && $data['ticket']->VoorstellingId == $Voorstellingen->Id) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($Voorstellingen->Naam) ?>
+                        <?php foreach ($data['vo'] as $v): ?>
+                            <option value="<?= $v->Id ?>"
+                                <?= ($data['ticket']->VoorstellingId == $v->Id) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($v->Naam) ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
                 </div>
 
                 <div class="mb-3">
-                    <label for="barcode" class="form-label">Barcode</label>
-                    <div class="input-group">
-                        <input
-                            name="Barcode"
-                            type="text"
-                            class="form-control"
-                            id="Barcode"
-                            value="<?= htmlspecialchars($data['ticket']->Barcode ?? 'Niet beschikbaar') ?>"
-                            placeholder="bijvb. BTA004"
-                            maxlength="6">
-                    </div>
+                    <label for="Barcode" class="form-label">Barcode</label>
+                    <input type="text" name="Barcode" id="Barcode" class="form-control"
+                        value="<?= htmlspecialchars($data['ticket']->Barcode ?? '') ?>"
+                        maxlength="6" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="datum" class="form-label">Datum</label>
-                    <input
-                        name="datum"
-                        type="date"
-                        class="form-control"
-                        id="datum"
-                        value="<?= htmlspecialchars($data['ticket']->Datum ?? '') ?>"
-                        required>
+                    <input type="date" name="datum" id="datum" class="form-control"
+                        value="<?= htmlspecialchars($data['ticket']->Datum ?? '') ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="tijd" class="form-label">Tijd</label>
-                    <input
-                        name="tijd"
-                        type="text"
-                        class="form-control"
-                        id="tijd"
-                        value="<?= htmlspecialchars($data['ticket']->Tijd ?? '') ?>"
-                        required>
+                    <input type="text" name="tijd" id="tijd" class="form-control"
+                        value="<?= htmlspecialchars($data['ticket']->Tijd ?? '') ?>" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="Nummer" class="form-label">Stoel</label>
-                    <input
-                        name="Nummer"
-                        type="number"
-                        class="form-control"
-                        id="Nummer"
+                    <input type="number" name="Nummer" id="Nummer" class="form-control"
                         value="<?= htmlspecialchars($data['ticket']->Nummer ?? '') ?>"
-                        min="1" max="100"
-                        required>
-                    <small class="text-light">Select a seat between 1 and 100</small>
+                        min="1" max="100" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="Status" class="form-label">Status</label>
-                    <input
-                        name="Status"
-                        type="text"
-                        class="form-control"
-                        id="Status"
-                        value="<?= htmlspecialchars($data['ticket']->Status ?? '----') ?>"
-                        required
-                        readonly>
+                    <input type="text" name="Status" id="Status" class="form-control"
+                        value="<?= htmlspecialchars($data['ticket']->Status ?? '----') ?>" readonly>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="<?= URLROOT ?>/tickets/index" class="btn btn-secondary ms-2">
-                    <i class="bi bi-arrow-left"></i> Terug
-                </a>
+                <a href="<?= URLROOT ?>/tickets/index" class="btn btn-secondary ms-2">Terug</a>
             </form>
         </div>
         <div class="col-3"></div>
     </div>
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
-
-<?php require_once APPROOT . '/views/includes/b-footer.php'; ?>
+<script src="<?= URLROOT ?>/public/js/ToastMessages.js"></script>
+<?php require APPROOT . '/views/includes/b-footer.php'; ?>

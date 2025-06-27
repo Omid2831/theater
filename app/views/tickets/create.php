@@ -31,14 +31,12 @@
         <div class="col-3"></div>
         <div class="col-6">
             <form action="<?= URLROOT ?>/tickets/create" method="post">
-
-
                 <div class="mb-3">
                     <label for="VoorstellingId" class="form-label">Kies een Voorstelling</label>
                     <select name="VoorstellingId" id="VoorstellingId" class="form-select" required>
                         <option value="">-- Selecteer een voorstelling --</option>
                         <?php foreach ($data['vo'] as $Voorstellingen): ?>
-                            <option value="<?= htmlspecialchars($Voorstellingen->Id); ?>"
+                            <option value="<?= htmlspecialchars($Voorstellingen->Id) ?? ''; ?>"
                                 <?= (isset($data['vo']) && $data['vo'] == $Voorstellingen->Id) ? 'selected' : '' ?>>
                                 <?= htmlspecialchars($Voorstellingen->Naam) ?>
                             </option>
@@ -53,7 +51,7 @@
                             type="text"
                             class="form-control"
                             id="barcode"
-                            value="<?= htmlspecialchars($_POST['Barcode'] ?? '') ?>"
+                            value="<?= $_POST['Barcode'] ?? '' ?>"
                             placeholder="bijvb. BTA004"
                             maxlength="6"
                             readonly>
@@ -68,7 +66,7 @@
                         type="date"
                         class="form-control"
                         id="datum"
-                        value="<?= htmlspecialchars($_POST['Datum'] ?? '') ?>"
+                        value="<?= $_POST['Datum'] ?? '' ?>"
                         required>
                 </div>
 
@@ -79,7 +77,7 @@
                         type="text"
                         class="form-control"
                         id="tijd"
-                        value="<?= htmlspecialchars($_POST['Tijd'] ?? '') ?>"
+                        value="<?= $_POST['Tijd'] ?? '' ?>"
                         required>
                 </div>
 
@@ -90,7 +88,7 @@
                         type="number"
                         class="form-control"
                         id="Nummer"
-                        value="<?= htmlspecialchars($_POST['Nummer'] ?? '') ?>"
+                        value="<?= $_POST['Nummer'] ?? '' ?>"
                         min="1" max="100"
                         minlength="1" maxlength="3"
                         required>
@@ -103,7 +101,7 @@
                         type="text"
                         class="form-control"
                         id="Status"
-                        value="<?= htmlspecialchars($_POST['Status'] ?? '----') ?>"
+                        value="<?= $_POST['Status'] ?? '' ?>"
                         required
                         readonly>
                 </div>
@@ -122,4 +120,5 @@
 <script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
-</body>
+
+<?php require APPROOT . '/views/includes/b-footer.php'; ?>
