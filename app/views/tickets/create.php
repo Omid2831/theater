@@ -1,36 +1,24 @@
 <?php require APPROOT . '/views/includes/b-header.php'; ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-
+<div class="row col-12 justify-content-center d-flex">
+    <!-- TOAST -->
+    <div
+        id="toastBox"
+        class="col-8 toast align-items-center text-bg-danger border-0 "
+        aria-live="assertive"
+        aria-atomic="true"
+        data-bs-autohide="true"
+        data-bs-delay="4000">
+        <div id="toastBody" class="toast-body text-center"></div>
+    </div>
+</div>
 <div class="container" style="margin-top: 5rem;">
-    <!-- Notification Bubble -->
-    <div style="display:<?= isset($data['success_message']) ? $data['success_message'] : 'none'; ?>">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-success" role="alert">
-                    <?= $data['success_message']; ?>
-                </div>
-            </div>
-            <div class="col-4"></div>
-        </div>
-    </div>
-    <div class="row py-5" style="display:<?= $data['error']; ?>">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4 text-center text-primary">
-                <div class="alert alert-danger" role="alert">
-                    <?= $data['error'] ?? ''; ?>
-                </div>
-            </div>
-            <div class="col-4"></div>
-        </div>
-    </div>
     <!-- Form -->
     <div class="row mt-4">
         <div class="col-3"></div>
         <div class="col-6">
-            <form action="<?= URLROOT ?>/tickets/create" method="post">
+            <form action="<?= URLROOT ?>/tickets/create" method="post" id="createForm">
                 <div class="mb-3">
                     <label for="VoorstellingId" class="form-label">Kies een Voorstelling</label>
                     <select name="VoorstellingId" id="VoorstellingId" class="form-select" required>
@@ -120,5 +108,6 @@
 <script src="<?= URLROOT ?>/public/js/geldigheid.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="<?= URLROOT ?>/public/js/timepicker.js"></script>
+<script src="<?= URLROOT ?>/public/js/ToastMessages.js"></script>
 
 <?php require APPROOT . '/views/includes/b-footer.php'; ?>
