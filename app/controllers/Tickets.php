@@ -63,7 +63,7 @@ class Tickets extends BaseController
      * @return void
      */
 
-    public function create($sms = 'none', $error = 'none')
+    public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Collect POST data
@@ -77,8 +77,6 @@ class Tickets extends BaseController
                 'PrijsId'        => 1, // Or get from form if needed
                 'title'          => 'Ticket Aanmaken',
                 'vo'             => $this->voorstellingen->GetAllVoorstellingen(),
-                'success_message' => $sms,
-                'error'          => $error,
             ];
 
 
@@ -86,20 +84,14 @@ class Tickets extends BaseController
             // Check if seat is already taken for this show
             $seatTaken = $this->ticketModel->isSeatTaken($data['VoorstellingId'], $data['Nummer']);
             if ($seatTaken) {
-                $data['error'] = 'Geen beschikbaarheid';
-                header('Refresh:3; URL=' . URLROOT . '/tickets/create');
-                $this->view('tickets/create', $data);
-                return;
+                return $this->showNotify(false, "Geen beschikbaarheid");
             }
 
             if ($this->voorstellingen->GetAllVoorstellingen() && $this->ticketModel->create($data)) {
 
                 // Validate time format (HH:MM)
                 if (empty($data['Tijd']) || !preg_match('/^\d{1,2}:\d{2} ?(AM|PM)?$/i', $data['Tijd'])) {
-                    $data['error'] = 'Ongeldige tijd ingevoerd. Gebruik het formaat HH:MM AM/PM.';
-                    error_log('Invalid tijd format: ' . $data['Tijd']); // Debugging log
-                    $this->view('tickets/create', $data);
-                    return;
+                    return $this->showNotify(false, 'Ongeldige tijd ingevoerd. Gebruik het formaat HH:MM AM/PM.' . ' Invalid tijd format: ' . $data['Tijd']);
                 }
 
 
@@ -114,22 +106,13 @@ class Tickets extends BaseController
                 $diffInDays = $now->diff($eventDateTime)->days;
                 // Check if time is between 11:00 PM and 10:00 AM
                 if ($hour < 10 || $hour >= 23) {
-                    $data['error'] = 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.';
-                    header('Refresh:3; URL=' . URLROOT . '/tickets/create');
-                    $this->view('tickets/create', $data);
-                    return;
+                    return $this->showNotify(false, 'Helaas, we zijn gesloten tussen 11:00 PM en 10:00 AM.');
                 } elseif ($diffInDays > 30) {
-                    $data['error'] = 'Ongeldig: ticket is te ver van de tijd.';
-                    header('Refresh:3; URL=' . URLROOT . '/tickets/create');
-                    $this->view('tickets/create', $data);
-                    return;
+                    return $this->showNotify(false, 'Ongeldig: ticket is te ver van de tijd.');
                 }
 
                 // If all checks pass, show success message
-                $data['success_message'] = 'Uw reservering is succesvol voltooid. Bedankt!';
-                header('Refresh:3; URL=' . URLROOT . '/tickets/index');
-                $this->view('tickets/create', $data);
-                return;
+                return $this->showNotify(true, 'Ticket succesvol aangemaakt.');
             }
         }
 
@@ -138,8 +121,6 @@ class Tickets extends BaseController
         $data = [
             'title' => 'Ticket Aanmaken',
             'vo' => $result,
-            'success_message' => $sms,
-            'error' => $error,
         ];
         $this->view('tickets/create', $data);
     }
