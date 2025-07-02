@@ -11,7 +11,7 @@ define('DB_PASS', '');
 /**
  * De naam van de virtualhost
  */
-define('URLROOT', 'http://aurora.local/');
+define('URLROOT', 'http://projectp4/');
 
 /**
  * Het pad naar de folder app
