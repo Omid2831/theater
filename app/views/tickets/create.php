@@ -72,10 +72,10 @@
                 <div class="mb-3">
                     <label for="Nummer" class="form-label">Stoel</label>
                     <input
-                        name="Nummer"
+                        name="stoel"
                         type="number"
                         class="form-control"
-                        id="Nummer"
+                        id="stoel"
                         value="<?= $_POST['Nummer'] ?? '' ?>"
                         min="1" max="100"
                         minlength="1" maxlength="3"
