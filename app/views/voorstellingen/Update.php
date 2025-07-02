@@ -28,7 +28,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="Datum" class="form-label">Datum</label>
-                    <input value="<?= $data['Voorstellingen']->Datum; ?>" name="Datum" type="text" class="form-control" id="Datum" required>
+                    <input value="<?= $data['Voorstellingen']->Datum; ?>" name="Datum" type="date" class="form-control" id="Datum" required>
                 </div>
                 <div class="mb-3">
                     <label for="Tijd" class="form-label">Tijd</label>
