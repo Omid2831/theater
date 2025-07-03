@@ -21,8 +21,7 @@ class Medewerkers extends BaseController
         */
        $data = [
             'title' => 'Alle medewerkers.',
-            'Medewerkers' => $result,
-             
+            'Medewerkers' => $result
        ];
 
          /**
@@ -34,25 +33,35 @@ class Medewerkers extends BaseController
 
     public function delete($Id)
     {
-        $sql = "DELETE 
-                FROM Medewerker
-                WHERE Id = :Id";
+          $result = $this->MedewerkersModel->delete($Id);
+          
+          header('Refresh:3 ; url=' . URLROOT . '/Medewerkers/Index');
 
-        $this->db->query($sql);
-        $this->db->bind(':Id', $Id, PDO::PARAM_INT);
-        return $this->db->execute();
+          $this->index('flex');
     }
 
-    public function create($data)
+     public function create()
     {
-        $sql = "INSERT INTO Medewerker (Nummer, Medewerkersoort)
-                VALUES (:nummer, :medewerkersoort)";
+          $data = [
+               'title' => 'Nieuwe medewerker toevoegen',
+               'message' => 'none'
+          ];
 
-        $this->db->query($sql);
-        $this->db->bind(':nummer', $data['nummer'], PDO::PARAM_INT);
-        $this->db->bind(':medewerkersoort', $data['medewerkersoort'], PDO::PARAM_STR);
+          if ($_SERVER["REQUEST_METHOD"] == "POST") {
+               if (empty($_POST['nummer']) || empty($_POST['medewerkersoort'])) {
+                    echo '<div class="alert alert-danger text-center" role="alert"><h4>Vul alle velden in</h4></div>';
+                    header('Refresh: 3; URL=' . URLROOT . '/Medewerkers/Create');
+                    exit;
+               }
 
-        return $this->db->execute();
+               $data['message'] = 'flex';
+
+               $this->MedewerkersModel->create($_POST);
+               
+               header('Refresh: 3; URL=' . URLROOT . '/Medewerkers/Index');
+          }          
+
+          $this->view('Medewerkers/Create', $data);
     }
 
     public function getMedewerkerById($Id)
@@ -68,19 +77,28 @@ class Medewerkers extends BaseController
         return $this->db->single();
     }
 
-    public function updateMedewerker($post)
+    public function update($Id = NULL)
     {
-        $sql = "UPDATE  Medewerker
-                SET     Nummer = :nummer
-                       ,Medewerkersoort = :medewerkersoort
-                WHERE  Id = :id;";
+          $data = [
+               'title' => 'Wijzig de medewerker',
+               'message' => 'none'
+          ];
 
-        $this->db->query($sql);
-        $this->db->bind(':nummer', $post['nummer'], PDO::PARAM_INT);
-        $this->db->bind(':medewerkersoort', $post['Medewerkersoort'], PDO::PARAM_STR);
-        $this->db->bind(':id', $post['Id'], PDO::PARAM_INT);
-        
-        $this->db->execute();
+          if ($_SERVER['REQUEST_METHOD'] == "POST") 
+          {
+               $Id = $_POST['Id'];
+
+               $result = $this->MedewerkersModel->updateMedewerker($_POST);
+
+               $data['message'] = 'flex';
+
+               header("Refresh:3 ; url=" . URLROOT . "/Medewerkers/Index");
+          }
+
+          $data['Medewerkers'] = $this->MedewerkersModel->getMedewerkerById($Id);
+
+
+          $this->view('Medewerkers/Update', $data);
     }
 
 }
