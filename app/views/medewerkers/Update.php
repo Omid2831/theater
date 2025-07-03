@@ -1,4 +1,5 @@
 <?php require   APPROOT . '/views/includes/header.php'; ?>
+<?php require   APPROOT . '/views/includes/b-header.php'; ?>
 
 <div class="container mt-3">
 
@@ -38,3 +39,4 @@
     <!-- eind tabel -->
 
 <?php require   APPROOT . '/views/includes/footer.php'; ?>
+<?php require   APPROOT . '/views/includes/b-footer.php'; ?>

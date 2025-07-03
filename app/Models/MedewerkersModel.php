@@ -28,7 +28,6 @@ class MedewerkersModel
             return [];
         }
     }
-<<<<<<< HEAD
 
     public function delete($Id)
     {
@@ -81,6 +80,4 @@ class MedewerkersModel
         $this->db->execute();
     }
 
-=======
->>>>>>> 4b92879f1790a331322d78696c5da0a83e92e2b8
 }

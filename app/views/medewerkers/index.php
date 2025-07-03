@@ -1,65 +1,23 @@
 <?php require   APPROOT . '/views/includes/header.php'; ?>
-
-<style>
-    body {
-        background-color: #1a1a1a;
-        color: #E8E8E8;
-        font-family: 'Segoe UI', sans-serif;
-    }
-    .container {
-        background-color: #2A3D45;
-        border-radius: 12px;
-        box-shadow: 0 0 30px rgba(0,0,0,0.4);
-        padding: 30px;
-        margin-top: 40px;
-        color: #E8E8E8;
-    }
-    h3 {
-        color: #C2B280;
-        font-weight: bold;
-    }
-    .table {
-        background-color: #2A3D45;
-        color: #E8E8E8;
-        border-radius: 8px;
-        overflow: hidden;
-    }
-    .table-striped > tbody > tr:nth-of-type(odd) {
-        background-color: #1E2D2F;
-    }
-    .table th {
-        background-color: #2A3D45;
-        color: #C2B280;
-        border-bottom: 2px solid #C2B280;
-    }
-    .table td {
-        border-top: 1px solid #C2B280;
-    }
-    .text-center {
-        color: #C2B280;
-    }
-    a {
-        color: #C2B280;
-        font-weight: bold;
-        text-decoration: none;
-    }
-    a:hover {
-        color: #E8E8E8;
-        text-decoration: underline;
-    }
-    footer {
-        background-color: #1E2D2F !important;
-        color: #E8E8E8 !important;
-    }
-</style>
+<?php require   APPROOT . '/views/includes/b-header.php'; ?>
 
 <div class="container mt-3">
 
     <div class="row">
 
         <div class="col-1"></div>
-        <div class="col-10">        
+        <div class="col-10 text-danger">  
+            <br>      
             <h3><?= $data['title']; ?></h3>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+    <div class="row mt-3 mb-3">
+
+        <div class="col-1"></div>
+        <div class="col-10 text-begin text-danger">        
+            <a href="<?= URLROOT; ?>/Medewerkers/Create" class="btn btn-danger" role="button">Nieuwe medewerker</a>
         </div>
         <div class="col-1"></div>
     </div>
@@ -73,6 +31,8 @@
                         <th>Id</th>
                         <th>Nummer</th>
                         <th>Medewerkersoort</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,6 +42,16 @@
                                 <td><?= $medewerker->Id; ?></td>
                                 <td><?= $medewerker->Nummer; ?></td>
                                 <td><?= $medewerker->Medewerkersoort; ?></td>
+                                <td>
+                                    <a href="<?= URLROOT; ?>/Medewerkers/Update/<?=$medewerker->Id; ?>">
+                                        <i class="bi bi-pencil-square text-success"></i>
+                                    </a>
+                                </td>
+                                    <td>
+                                    <a href="<?= URLROOT; ?>/Medewerkers/delete/<?=$medewerker->Id; ?>">
+                                        <i class="bi bi-trash3-fill text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
