@@ -4,10 +4,10 @@ async function checkSeatTaken(voorstellingId, nummer) {
       voorstellingId
     )}&nummer=${encodeURIComponent(nummer)}`
   );
-  
   const data = await response.json();
-  return data.taken; // true or false
+  return data.taken;
 }
+
 function checkTicketValidity(datum, tijd) {
   const now = new Date();
   const eventDateTime = new Date(`${datum}T${tijd}`);
@@ -40,24 +40,21 @@ function checkTicketValidity(datum, tijd) {
 document.addEventListener("DOMContentLoaded", function () {
   const datum = document.getElementById("datum");
   const tijd = document.getElementById("tijd");
-  const stoel = document.getElementById("stoel");
+  const stoel = document.getElementById("Number");
   const voorstelling = document.getElementById("VoorstellingId");
   const statusInput = document.getElementById("Status");
 
   async function updateStatus() {
-    // First, check date/time validity
     const isValid = checkTicketValidity(datum.value, tijd.value);
-    console.log(isValid);
     if (!isValid) return;
 
-    // Then, check if seat is taken (only if all fields are filled)
     const voorstellingId = voorstelling.value;
     const stoelNummer = stoel.value;
     if (voorstellingId && stoelNummer) {
       const isTaken = await checkSeatTaken(voorstellingId, stoelNummer);
       if (isTaken) {
         statusInput.value = "Ongeldig: stoel is al gereserveerd";
-        statusInput.style.color = "warning";
+        statusInput.style.color = "red";
       }
     }
   }
@@ -67,6 +64,5 @@ document.addEventListener("DOMContentLoaded", function () {
   stoel.addEventListener("input", updateStatus);
   voorstelling.addEventListener("input", updateStatus);
 
-  // Initial check on load (in case values are pre-filled)
   updateStatus();
 });
