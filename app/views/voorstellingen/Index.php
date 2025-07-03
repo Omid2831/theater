@@ -4,7 +4,7 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> -->
 
 
-<div class="container mt-3">
+<div class="container" style="margin-top: 15rem;">
 
     <div class="row">
 
@@ -58,4 +58,4 @@
 </div>
     <!-- eind tabel -->
 
-<?php require_once   APPROOT . '/views/includes/footer.php'; ?>
+
