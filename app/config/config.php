@@ -15,7 +15,7 @@ define('DB_PASS', '');
 /**
  * De naam van de virtualhost
  */
-define('URLROOT', 'http://projectp4/');
+define('URLROOT', $urlRoot);
 
 /**
  * Het pad naar de folder app
