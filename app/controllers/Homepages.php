@@ -11,7 +11,8 @@ class Homepages extends BaseController
 
 
         $data = [
-            'title' => 'Homepagina',
+            'title' => '',
+            
         ];
 
         /**
@@ -20,5 +21,4 @@ class Homepages extends BaseController
          */
         $this->view('Homepages/index', $data);
     }
-
 }

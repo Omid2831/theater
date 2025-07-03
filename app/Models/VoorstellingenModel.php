@@ -11,6 +11,7 @@ class VoorstellingenModel
 
     public function GetAllVoorstellingen()
     {
+<<<<<<< HEAD
         $sql = "SELECT  VRLN.Id
                        ,VRLN.Naam
                        ,VRLN.Beschrijving
@@ -94,4 +95,27 @@ class VoorstellingenModel
         $this->db->execute();
     }
 
+=======
+        try {
+
+          $sql = "SELECT     VRLN.Id
+                            ,VRLN.Naam
+                            ,VRLN.Beschrijving
+                            ,VRLN.Datum
+                            ,VRLN.Tijd
+                            ,VRLN.MaxAantalTickets
+                            ,VRLN.Beschikbaarheid
+                    FROM  Voorstelling  as VRLN
+                
+                    ORDER BY VRLN.Datum";
+
+                   $this->db->query($sql);
+
+              return $this->db->resultSet();
+        } catch (PDOException $e) {
+            error_log("Er is een onverwachte fout opgetreden" . $e->getMessage());
+            return [];
+        }
+    }
+>>>>>>> 4b92879f1790a331322d78696c5da0a83e92e2b8
 }

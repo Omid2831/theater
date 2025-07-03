@@ -21,7 +21,8 @@ class Medewerkers extends BaseController
         */
        $data = [
             'title' => 'Alle medewerkers.',
-            'Medewerkers' => $result
+            'Medewerkers' => $result,
+             
        ];
 
          /**
@@ -31,60 +32,4 @@ class Medewerkers extends BaseController
        $this->view('Medewerkers/Index', $data); 
     }
 
-    public function delete($Id)
-    {
-          $result = $this->MedewerkersModel->delete($Id);
-          
-          header('Refresh:3 ; url=' . URLROOT . '/Medewerkers/Index');
-
-          $this->index('flex');
-    }
-
-     public function create()
-    {
-          $data = [
-               'title' => 'Nieuwe medewerker toevoegen',
-               'message' => 'none'
-          ];
-
-          if ($_SERVER["REQUEST_METHOD"] == "POST") {
-               if (empty($_POST['nummer']) || empty($_POST['medewerkersoort'])) {
-                    echo '<div class="alert alert-danger text-center" role="alert"><h4>Vul alle velden in</h4></div>';
-                    header('Refresh: 3; URL=' . URLROOT . '/Medewerkers/Create');
-                    exit;
-               }
-
-               $data['message'] = 'flex';
-
-               $this->MedewerkersModel->create($_POST);
-               
-               header('Refresh: 3; URL=' . URLROOT . '/Medewerkers/Index');
-          }          
-
-          $this->view('Medewerkers/Create', $data);
-    }
-
-    public function update($Id = NULL)
-    {
-          $data = [
-               'title' => 'Wijzig de medewerker',
-               'message' => 'none'
-          ];
-
-          if ($_SERVER['REQUEST_METHOD'] == "POST") 
-          {
-               $Id = $_POST['Id'];
-
-               $result = $this->MedewerkersModel->updateMedewerker($_POST);
-
-               $data['message'] = 'flex';
-
-               header("Refresh:3 ; url=" . URLROOT . "/Medewerkers/Index");
-          }
-
-          $data['Medewerkers'] = $this->MedewerkersModel->getMedewerkerById($Id);
-
-
-          $this->view('Medewerkers/Update', $data);
-    }
 }

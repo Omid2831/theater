@@ -1,9 +1,13 @@
 <?php
+
+$dbName = 'Aurora';
+$urlRoot = 'http://theater';
+
 /**
  * De database verbindingsgegevens
  */
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'Aurora');
+define('DB_NAME', $dbName); // de naam van de database bij odi is Aurora 
 define('DB_USER', 'root');
 define('DB_PASS', '');
 

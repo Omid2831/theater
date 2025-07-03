@@ -69,7 +69,11 @@ class Database
      */
     public function bind($parameter, $value, $type = null)
     {
-        $this->statement->bindValue($parameter, $value, $type);
+          if ($type === null) {
+            $this->statement->bindValue($parameter, $value);
+        } else {
+            $this->statement->bindValue($parameter, $value, $type);
+        }
     }
 
     /**
@@ -90,5 +94,9 @@ class Database
 
     public function outQuery($sql) {
         return $this->dbHandler->query($sql);
+    }
+
+    public function lastInsertId() {
+        return $this->dbHandler->lastInsertId();
     }
 }
