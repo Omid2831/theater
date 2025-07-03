@@ -119,46 +119,6 @@ CREATE TABLE
         FOREIGN KEY (PrijsId) REFERENCES Prijs (Id)
     );
 
-<<<<<<< HEAD
---data van het medewerker tabel invullen met id, gebruiker, nummer en medewerkersoort zoals hieronder duidelijk is weergegeven.
- INSERT INTO Medewerker (
-    Id,
-    GebruikerId,
-    Nummer,
-    Medewerkersoort,
-    Isactief,
-    Opmerking,
-    Datumaangemaakt,
-    Datumgewijzigd
-)
-VALUES
- (1, 1, 1234, "Ticketscanner", 1, NULL, SYSDATE(6), SYSDATE(6))
-,(2, 2, 4321, "Diskmedewerker", 1, NULL, SYSDATE(6), SYSDATE(6))
-,(3, 3, 9999, "Manager", 1, NULL, SYSDATE(6), SYSDATE(6));
- 
-
--- data in voorstelling zetten. de naam, tijd, datum, maximaal aantal tickets en beschrijving van de voorstellingen die beschikbaar zijn
- INSERT INTO Voorstelling
-(
-      Id
-     ,MedewerkerId
-     ,Naam
-     ,Beschrijving
-     ,Datum
-     ,Tijd
-     ,MaxAantalTickets
-     ,Beschikbaarheid
-     ,IsActief
-     ,Opmerking
-     ,DatumAangemaakt
-     ,DatumGewijzigd
-)
-VALUES
-   (1, 1,'Soldaat van oranje', 'Een theaterstuk over de Tweede Wereldoorlog.', "2025-06-20", '16:00', 50, 40, 1, NULL, SYSDATE(6), SYSDATE(6))
-  ,(2, 2,'Frozen', 'Een musical over twee zussen', "2025-06-10", '13:00', 100, 30, 1, NULL, SYSDATE(6), SYSDATE(6))
-  ,(3, 3,'Elizabeth', 'Een Musical over de problemen van het hofsleven', "2025-05-29", '19:00', 200, 130, 1, NULL, SYSDATE(6), SYSDATE(6));
-
-=======
 CREATE TABLE
     Melding (
         Id INT AUTO_INCREMENT PRIMARY KEY,
@@ -306,4 +266,3 @@ VALUES
 (3, 3, 3, 403, 'Feedback', 'Goede show!', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (4, 4, 4, 404, 'Klacht', 'Lange wachtrij.', 1, NULL, SYSDATE(6), SYSDATE(6)),
 (5, 5, 5, 405, 'Vraag', 'Hoe laat begint het?', 1, NULL, SYSDATE(6), SYSDATE(6));
->>>>>>> 4b92879f1790a331322d78696c5da0a83e92e2b8
