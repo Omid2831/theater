@@ -1,15 +1,27 @@
 <?php require   APPROOT . '/views/includes/header.php'; ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 <div class="container mt-3">
 
     <div class="row">
 
         <div class="col-1"></div>
-        <div class="col-10">        
+        <div class="col-10 text-danger">    
+            <br>    
             <h3><?= $data['title']; ?></h3>
         </div>
         <div class="col-1"></div>
     </div>
+
+    <div class="row mt-3 mb-3">
+
+        <div class="col-1"></div>
+        <div class="col-10 text-begin text-danger">        
+            <a href="<?= URLROOT; ?>/Medewerkers/Create" class="btn btn-danger" role="button">Nieuwe medewerker</a>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
     <!-- begin tabel -->
     <div class="row">
         <div class="col-1"></div>
@@ -20,6 +32,8 @@
                         <th>Id</th>
                         <th>Nummer</th>
                         <th>Medewerkersoort</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +43,16 @@
                                 <td><?= $medewerker->Id; ?></td>
                                 <td><?= $medewerker->Nummer; ?></td>
                                 <td><?= $medewerker->Medewerkersoort; ?></td>
+                                <td>
+                                    <a href="<?= URLROOT; ?>/Medewerkers/Update/<?=$medewerker->Id; ?>">
+                                        <i class="bi bi-pencil-square text-success"></i>
+                                    </a>
+                                </td>
+                                    <td>
+                                    <a href="<?= URLROOT; ?>/Medewerkers/delete/<?=$medewerker->Id; ?>">
+                                        <i class="bi bi-trash3-fill text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
