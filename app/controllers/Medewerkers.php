@@ -64,19 +64,6 @@ class Medewerkers extends BaseController
           $this->view('Medewerkers/Create', $data);
     }
 
-    public function getMedewerkerById($Id)
-    {
-        $sql = "SELECT  Id
-                       ,Nummer
-                       ,Medewerkersoort
-                FROM   Medewerker
-                WHERE  Id = :id";
-
-        $this->db->query($sql);
-        $this->db->bind(':id', $Id, PDO::PARAM_INT);
-        return $this->db->single();
-    }
-
     public function update($Id = NULL)
     {
           $data = [
