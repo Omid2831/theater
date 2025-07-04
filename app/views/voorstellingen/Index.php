@@ -15,6 +15,16 @@
         </div>
         <div class="col-1"></div>
     </div>
+
+    <div class="row mt-3 mb-3">
+
+        <div class="col-1"></div>
+        <div class="col-10 text-begin text-danger">
+            <a href="<?= URLROOT; ?>/Voorstellingen/Create" class="btn btn-danger" role="button">Nieuwe voorstelling</a>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
     <!-- begin tabel -->
     <div class="row">
         <div class="col-1"></div>
@@ -28,6 +38,8 @@
                         <th>Tijd</th>
                         <th>Maximaal aantal tickets</th>
                         <th>Beschikbaarheid</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +52,16 @@
                                 <td><?= $voorstelling->Tijd; ?></td>
                                 <td><?= $voorstelling->MaxAantalTickets; ?></td>
                                 <td><?= $voorstelling->Beschikbaarheid; ?></td>
+                                <td>
+                                    <a href="<?= URLROOT; ?>/voorstellingen/Update/<?= $voorstelling->Id; ?>">
+                                        <i class="bi bi-pencil-square text-success"></i>
+                                    </a>
+                                </td>
+                                    <td>
+                                    <a href="<?= URLROOT; ?>/voorstellingen/delete/<?= $voorstelling->Id; ?>">
+                                        <i class="bi bi-trash3-fill text-danger"></i>
+                                    </a>
+                                </td>
                             </tr>
                         <?php endforeach ?> 
                     <?php else: ?>
